@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  ssl:
+    enabled: true
+    certificate: /etc/letsencrypt/live/api.teda.uz/fullchain.pem
+    certificate-private-key: /etc/letsencrypt/live/api.teda.uz/privkey.pem
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/avantage_events
+    username: postgres
+    password: root123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+telegram:
+  bot:
+    username: avantageEvents_bot
+    token: 6189750542:AAHumZZIJbwfwrdBtSwzsTffCCxboIAGVRo
+    id: 1
+debug: true
+page:
+  size:20
+company:
+  id: 1
