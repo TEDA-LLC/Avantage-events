@@ -1,5 +1,6 @@
 package com.example.avantageevents.model;
 
+import com.example.avantageevents.model.enums.ActiveTypes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -22,8 +23,8 @@ public class ActivityStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ActivityStatus firstCase;
-    private ActivityStatus secondCase;
+    private ActiveTypes firstCase;
+    private ActiveTypes secondCase;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime period = LocalDateTime.now();
     @JsonIgnore
