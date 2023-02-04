@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-public class ActiveTypes {
+public class ActivityStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ActiveTypes firstCase;
-    private ActiveTypes secondCase;
+    private ActivityStatus firstCase;
+    private ActivityStatus secondCase;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime period = LocalDateTime.now();
     @JsonIgnore
