@@ -25,7 +25,7 @@ public class Country {
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private ActiveTypes activityType;
+    private ActivityStatus activityType;
     private String stirNumber;
     @ManyToOne
     private Company memberOrganization;
@@ -58,7 +58,7 @@ public class Country {
     }
 
 
-    public Company(String name, ActiveTypes activityType, String stirNumber, Address address, Company memberOrganization,List<User> employees, BankInfo bankInfo, Employee director) {
+    public Company(String name, ActivityStatus activityType, String stirNumber, Address address, Company memberOrganization, List<User> employees, BankInfo bankInfo, Employee director) {
         this.name = name;
         this.activityType = activityType;
         this.stirNumber = stirNumber;
