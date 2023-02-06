@@ -1,6 +1,8 @@
 package com.example.avantageevents.controller;
 
+import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.model.Category;
+import com.example.avantageevents.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
