@@ -8,7 +8,6 @@ import com.example.avantageevents.repository.CountryRepository;
 import com.example.avantageevents.repository.DistrictRepository;
 import com.example.avantageevents.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
