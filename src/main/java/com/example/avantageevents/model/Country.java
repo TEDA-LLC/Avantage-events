@@ -1,5 +1,6 @@
 package com.example.avantageevents.model;
 
+import com.example.avantageevents.model.enums.ActiveTypes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -25,7 +26,7 @@ public class Country {
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)
-    private ActivityStatus activityType;
+    private ActiveTypes activityType;
     private String stirNumber;
     @ManyToOne
     private Company memberOrganization;
@@ -58,9 +59,9 @@ public class Country {
     }
 
 
-    public Company(String name, ActivityStatus activityType, String stirNumber, Address address, Company memberOrganization, List<User> employees, BankInfo bankInfo, Employee director) {
+    public Company(String name, ActiveTypes activeType, String stirNumber, Address address, Company memberOrganization, List<User> employees, BankInfo bankInfo, Employee director) {
         this.name = name;
-        this.activityType = activityType;
+        this.activityType= activeType;
         this.stirNumber = stirNumber;
         this.address = address;
         this.memberOrganization = memberOrganization;
