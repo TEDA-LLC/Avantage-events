@@ -1,6 +1,7 @@
 package com.example.avantageevents.repository;
 
 import com.example.avantageevents.model.Company;
+import com.example.avantageevents.model.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
