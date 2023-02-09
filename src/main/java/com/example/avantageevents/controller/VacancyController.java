@@ -1,6 +1,7 @@
 package com.example.avantageevents.controller;
 
 import com.example.avantageevents.dto.ApiResponse;
+import com.example.avantageevents.dto.VacancyDTO;
 import com.example.avantageevents.model.Vacancy;
 import com.example.avantageevents.service.VacancyService;
 import lombok.RequiredArgsConstructor;
