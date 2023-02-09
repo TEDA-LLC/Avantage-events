@@ -2,10 +2,11 @@ package com.example.avantageevents.service;
 
 import com.example.avantageevents.bot.TelegramBot;
 import com.example.avantageevents.dto.ApiResponse;
-import com.example.avantageevents.model.Product;
-import com.example.avantageevents.repository.CompanyRepository;
-import com.example.avantageevents.repository.ProductRepository;
-import com.example.avantageevents.repository.SiteHistoryRepository;
+import com.example.avantageevents.dto.RequestDTO;
+import com.example.avantageevents.dto.ReviewDTO;
+import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.enums.RegisteredType;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
