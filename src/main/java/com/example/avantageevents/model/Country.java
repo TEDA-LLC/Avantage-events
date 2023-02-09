@@ -24,49 +24,15 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
-    @Enumerated(EnumType.STRING)
-    private ActiveTypes activityType;
-    private String stirNumber;
-    @ManyToOne
-    private Company memberOrganization;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Address address;
-    @OneToMany(mappedBy = "company")
-    @ToString.Exclude
-    private List<BankInfo> bankInfo;
-    @ManyToOne
-    private Employee director;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime registeredTime = LocalDateTime.now();
-    @ManyToMany(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<User> clientList;
-    @OneToMany(mappedBy = "company")
-    @ToString.Exclude
-    private List<Bot> botList;
-    @ManyToMany
-    @ToString.Exclude
-    private List<Employee> employees;
-    @Builder.Default
-    private boolean active = true;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Attachment attachment;
+    private String shortName;
 
-    public Company(Employee director) {
-        this.director = director;
-    }
-
-
-    public Company(String name, ActiveTypes activeType, String stirNumber, Address address, Company memberOrganization, List<User> employees, BankInfo bankInfo, Employee director) {
+    public Country(String name, String shortName) {
         this.name = name;
-        this.activityType= activeType;
-        this.stirNumber = stirNumber;
-        this.address = address;
-        this.memberOrganization = memberOrganization;
-//        this.bankInfo = bankInfo;
-        this.director = director;
+        this.shortName = shortName;
     }
 
 }
