@@ -1,7 +1,8 @@
 package com.example.avantageevents.service;
 
 import com.example.avantageevents.dto.ApiResponse;
-import com.example.avantageevents.repository.ProductRepository;
+import com.example.avantageevents.model.*;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
