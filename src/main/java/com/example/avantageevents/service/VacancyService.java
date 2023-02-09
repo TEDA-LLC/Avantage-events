@@ -3,9 +3,12 @@ package com.example.avantageevents.service;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.VacancyDTO;
 import com.example.avantageevents.model.Vacancy;
+import com.example.avantageevents.repository.BotRepository;
 import com.example.avantageevents.repository.VacancyRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +16,8 @@ import java.util.Optional;
 /**
  * @author Malikov Azizjon  *  06.02.2023  *  13:46   *  AvantageEvents
  */
+@Service
+@RequiredArgsConstructor
 public class VacancyService {
 
     @Value("${telegram.bot.id}")
