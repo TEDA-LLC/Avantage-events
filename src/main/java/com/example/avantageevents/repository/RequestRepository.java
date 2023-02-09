@@ -15,7 +15,7 @@ import java.util.List;
  * @author Malikov Azizjon  *  08.02.2023  *  14:32   *  AvantageEvents
  */
 @Repository
-public interface ReqestRepository extends JpaRepository<Request,Long> {
+public interface RequestRepository extends JpaRepository<Request,Long> {
 
     List<Request> findAllByUserAndProduct_Category_Bot_Id(User user, Long botId, Sort sort);
     List<Request> findAllByUser(User user);
