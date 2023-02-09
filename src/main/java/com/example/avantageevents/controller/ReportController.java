@@ -1,6 +1,9 @@
 package com.example.avantageevents.controller;
 
 import com.example.avantageevents.dto.ApiResponse;
+import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.UserHistory;
+import com.example.avantageevents.model.WordHistory;
 import com.example.avantageevents.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
