@@ -44,8 +44,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BotService {
 
-    @Value("${telegram.bot.id}")
-    private Long botId;
+    @Value("${company.department.id}")
+    private Long departmentId;
     private final UserHistoryRepository userHistoryRepository;
     private final ButtonService buttonService;
     private final CategoryRepository categoryRepository;
@@ -54,8 +54,7 @@ public class BotService {
     private final RequestRepository requestRepository;
     private final VacancyRepository vacancyRepository;
     private final BotRepository botRepository;
-    private final QRCodeService qrCodeService;
-    private final AttachmentRepository attachmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     public SendMessage start(String chatId) {
         return SendMessage.builder()
@@ -112,8 +111,8 @@ public class BotService {
     }
 
     public SendPhoto aboutUs(String chatId, Language language) {
-        Optional<Bot> botOptional = botRepository.findById(botId);
-        Bot bot = botOptional.get();
+        Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
+        Bot bot = departmentOptional.get().getBot();
 //        if(bot.getLogo() == null ) {
 //            SendMessage sendMessage = new SendMessage();
 //            sendMessage.setParseMode("HTML");
@@ -290,7 +289,7 @@ public class BotService {
                         .filters(List.of(FilterRequest.builder().
                                 fieldType(FieldType.LONG).
                                 operator(Operator.EQUAL).
-                                value(botId).
+                                value(departmentId).
                                 key("bot.id")
                                 .build())
                         ).build()).and(new EntitySpecification<>(searchRequest)), PageRequest.of(0, 1));
@@ -546,7 +545,7 @@ public class BotService {
 
     public SendMessage vacancies(String chatId, User currentUser) {
 
-        List<Vacancy> vacancies = vacancyRepository.findAllByActiveTrueAndBot_Id(botId);
+        List<Vacancy> vacancies = vacancyRepository.findAllByActiveTrueAndDepartment_Id(departmentId);
 
         if (vacancies.isEmpty()) {
             SendMessage sendMessage = new SendMessage();
