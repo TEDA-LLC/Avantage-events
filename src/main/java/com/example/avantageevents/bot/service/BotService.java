@@ -7,7 +7,14 @@ import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.repository.*;
+import com.example.avantageevents.service.QRCodeService;
+import com.example.avantageevents.specification.*;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +29,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,6 +54,8 @@ public class BotService {
     private final RequestRepository requestRepository;
     private final VacancyRepository vacancyRepository;
     private final BotRepository botRepository;
+    private final QRCodeService qrCodeService;
+    private final AttachmentRepository attachmentRepository;
 
     public SendMessage start(String chatId) {
         return SendMessage.builder()
@@ -350,14 +360,18 @@ public class BotService {
         userHistory.setUser(currentUser);
         userHistory.setProduct(product);
         userHistoryRepository.save(userHistory);
-        builder.append(product.getFrom().toString());
-        builder.append(" - ");
-        builder.append(product.getTo().toString());
-        builder.append("\n");
-        builder.append("Address: ");
-        builder.append(product.getAddress().getDistrict().getName());
-        builder.append(" ");
-        builder.append(product.getAddress().getStreetHome());
+        if (product.getAddress() != null) {
+            if (product.getFromDate() != null && product.getToDate() != null) {
+                builder.append(product.getFromDate().toLocalDate().toString());
+                builder.append(" - ");
+                builder.append(product.getToDate().toLocalDate().toString());
+                builder.append("\n");
+            }
+            builder.append("Address: ");
+            builder.append(product.getAddress().getDistrict().getName());
+            builder.append(" ");
+            builder.append(product.getAddress().getStreetHome());
+        }
         sendPhoto.setCaption(String.valueOf(builder));
 
         InputFile inputFile = new InputFile(new ByteArrayInputStream(product.getAttachment().getBytes()), product.getAttachment().getOriginalName());
@@ -411,6 +425,7 @@ public class BotService {
         wordHistoryRepository.save(wordsHistory);
     }
 
+    @SneakyThrows
     public SendPhoto saveRequest(Update update, User currentUser) {
         String data = update.getCallbackQuery().getData();
 
@@ -431,12 +446,18 @@ public class BotService {
             request = requestList.get(0);
         }
         requestRepository.save(request);
-
         SendPhoto sendPhoto = new SendPhoto();
-        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-        bb.putLong(request.getUser().getQrcode().getMostSignificantBits());
-        bb.putLong(request.getUser().getQrcode().getLeastSignificantBits());
-        InputFile inputFile = new InputFile(new ByteArrayInputStream(bb.array()).toString());
+//        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+//        bb.putLong(request.getUser().getQrcode().getMostSignificantBits());
+//        bb.putLong(request.getUser().getQrcode().getLeastSignificantBits());
+//        InputFile inputFile = new InputFile(new ByteArrayInputStream(bb.array()).toString());
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(request.getUser().getQrcode().toString(), BarcodeFormat.QR_CODE, 500, 500);
+
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+        byte[] pngData = pngOutputStream.toByteArray();
+        InputFile inputFile = new InputFile(new ByteArrayInputStream(pngData), "QrCode.png");
         sendPhoto.setPhoto(inputFile);
         sendPhoto.setChatId(update.getCallbackQuery().getMessage().getChatId());
         if (currentUser.getLanguage().equals(Language.UZB)) {
@@ -585,7 +606,8 @@ public class BotService {
     }
 
     public SendLocation getLocation(Update update, User currentUser) {
-        Optional<Product> productOptional = productRepository.findById(Long.valueOf(update.getCallbackQuery().getData()));
+        Long productId = Long.valueOf(update.getCallbackQuery().getData().substring(8));
+        Optional<Product> productOptional = productRepository.findById(Long.valueOf(productId));
         Product product = productOptional.get();
         SendLocation sendLocation = new SendLocation();
         sendLocation.setChatId(String.valueOf(update.getCallbackQuery().getMessage().getChatId()));
