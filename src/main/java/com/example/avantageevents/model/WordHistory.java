@@ -28,4 +28,8 @@ public class WordHistory {
     private LocalDateTime dateTime = LocalDateTime.now();
     private String word;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Department department;
+
 }
