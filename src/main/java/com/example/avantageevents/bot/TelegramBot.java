@@ -4,10 +4,7 @@ import com.example.avantageevents.bot.constant.ConstantEn;
 import com.example.avantageevents.bot.constant.ConstantRu;
 import com.example.avantageevents.bot.constant.ConstantUz;
 import com.example.avantageevents.bot.service.BotService;
-import com.example.avantageevents.model.Address;
-import com.example.avantageevents.model.Bot;
-import com.example.avantageevents.model.Product;
-import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.model.enums.State;
@@ -39,15 +36,16 @@ public class TelegramBot extends TelegramLongPollingBot {
     private String userName;
     @Value("${telegram.bot.token}")
     private String botToken;
-    @Value("${telegram.bot.id}")
-    private Long botId;
-    @Value("${company.id}")
-    private Long companyId;
+    //    @Value("${telegram.bot.id}")
+//    private Long botId;
+    @Value("${company.department.id}")
+    private Long departmentId;
     private final CompanyRepository companyRepository;
     private final BotService botService;
     private final UserRepository userRepository;
     private final BotRepository botRepository;
     private final ProductRepository productRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Override
     public String getBotUsername() {
@@ -68,11 +66,11 @@ public class TelegramBot extends TelegramLongPollingBot {
             public void run() {
                 User currentUser;
                 if (update.hasMessage()) {
-                    Optional<Bot> botOptional = botRepository.findById(botId);
-                    Bot bot = botOptional.get();
+                    Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
+                    Bot bot = departmentOptional.get().getBot();
                     Message message = update.getMessage();
                     String chatId = String.valueOf(message.getChatId());
-                    Optional<User> optionalUser = userRepository.findByBot_IdAndChatId(botId, chatId);
+                    Optional<User> optionalUser = userRepository.findByDepartment_IdAndChatId(departmentId, chatId);
                     if (message.hasText()) {
                         if (message.getText().equals("/start")) {
                             if (optionalUser.isPresent()) {
@@ -81,13 +79,14 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 currentUser.setFullName(update.getMessage().getFrom().getFirstName());
                             } else {
                                 currentUser = new User();
-                                currentUser.setCompany(companyRepository.findById(companyId).get());
+//                                currentUser.setCompany(companyRepository.findById(companyId).get());
+                                currentUser.setDepartment(departmentOptional.get());
                                 currentUser.setChatId(String.valueOf(update.getMessage().getChatId()));
                                 currentUser.setRegisteredType(RegisteredType.BOT);
                                 currentUser.setFullName(message.getFrom().getFirstName());
                                 currentUser.setUsername(message.getFrom().getUserName());
                                 currentUser.setState(State.START);
-                                currentUser.setBot(bot);
+//                                currentUser.setBot(bot);
                             }
                             currentUser.setLastOperationTime(LocalDateTime.now());
                             userRepository.save(currentUser);
@@ -194,7 +193,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 if (!phoneNumber.startsWith("+")) {
                                     phoneNumber = "+" + phoneNumber;
                                 }
-                                Optional<User> byPhone = userRepository.findByPhoneAndBot_Id(phoneNumber, botId);
+                                Optional<User> byPhone = userRepository.findByPhoneAndDepartment_Id(phoneNumber, departmentId);
                                 user.setPhone(message.getContact().getPhoneNumber());
                                 user.setState(State.CONTACT);
                                 user.setLastOperationTime(LocalDateTime.now());
@@ -204,11 +203,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                                     user1.setPhone(phoneNumber);
                                     user1.setCount(user1.getCount() + user.getCount());
                                     user1.setLastOperationTime(LocalDateTime.now());
-                                    user1.setBot(user.getBot());
+//                                    user1.setBot(user.getBot());
                                     user1.setLanguage(user.getLanguage());
                                     user1.setChatId(user.getChatId());
                                     user1.setUsername(user.getUsername());
-                                    user1.setCompany(user.getCompany());
+//                                    user1.setCompany(user.getCompany());
+                                    user1.setDepartment(user.getDepartment());
                                     userRepository.save(user1);
                                     userRepository.delete(user);
                                 } else {
@@ -228,7 +228,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } else if (update.hasCallbackQuery()) {
                     CallbackQuery callbackQuery = update.getCallbackQuery();
                     String chatId = String.valueOf(callbackQuery.getMessage().getChatId());
-                    Optional<User> optionalUser = userRepository.findByBot_IdAndChatId(botId, chatId);
+                    Optional<User> optionalUser = userRepository.findByDepartment_IdAndChatId(departmentId, chatId);
                     currentUser = optionalUser.get();
                     switch (currentUser.getState()) {
                         case CONTACT -> {
@@ -261,6 +261,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                                         execute(botService.getLocation(update, currentUser));
                                     }
                                 }
+                                currentUser.setState(State.CONTACT);
+                                userRepository.save(currentUser);
+                                execute(botService.menu(chatId, currentUser.getLanguage()));
                             }
                         }
                     }
