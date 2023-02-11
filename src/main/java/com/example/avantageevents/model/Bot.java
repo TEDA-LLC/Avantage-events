@@ -25,23 +25,22 @@ public class Bot {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Company company;
+    private Department department;
     @OneToMany
     @ToString.Exclude
     private List<Employee> authorizedEmployees;
-    @OneToMany(mappedBy = "bot")
-    @ToString.Exclude
-    private List<User> userList;
-    @OneToMany(mappedBy = "bot")
-    @ToString.Exclude
-    private List<Category> categories;
-
-    @OneToMany(mappedBy = "bot")
-    @ToString.Exclude
-    private List<Vacancy> vacancies;
+    //    @OneToMany(mappedBy = "bot")
+//    @ToString.Exclude
+//    private List<User> userList;
+//    @OneToMany(mappedBy = "department")
+//    @ToString.Exclude
+//    private List<Category> categories;
+//
+//    @OneToMany(mappedBy = "department")
+//    @ToString.Exclude
+//    private List<Vacancy> vacancies;
     @Column(nullable = false)
     private boolean active = true;
-
     @ManyToOne
     private Attachment logo;
 
