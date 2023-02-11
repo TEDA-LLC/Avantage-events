@@ -33,10 +33,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SiteService {
 
-    @Value("${telegram.bot.id}")
-    private Long botId;
-    @Value("${company.id}")
-    private Long companyId;
+    //    @Value("${telegram.bot.id}")
+//    private Long botId;
+    @Value("${company.department.id}")
+    private Long departmentId;
     private final RequestRepository requestRepository;
     private final SiteHistoryRepository siteHistoryRepository;
     private final UserRepository userRepository;
@@ -46,6 +46,7 @@ public class SiteService {
     private final QRCodeService qrCodeService;
     private final BotRepository botRepository;
     private final CompanyRepository companyRepository;
+    private final DepartmentRepository departmentRepository;
 
     public ApiResponse<?> add(RequestDTO dto) {
         boolean isEmail = dto.getEmail() == null || !dto.getEmail().equals("");
@@ -56,7 +57,7 @@ public class SiteService {
         request.setDateTime(LocalDateTime.now());
 
         Optional<Product> productOptional = productRepository.findById(dto.getProductId());
-        if (productOptional.isEmpty() || !productOptional.get().getCategory().getBot().getId().equals(botId)) {
+        if (productOptional.isEmpty() || !productOptional.get().getCategory().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.builder().
                     message("Not found").
                     success(false).
@@ -180,8 +181,8 @@ public class SiteService {
             isPhone = !phone.equals("");
         }
         if (isEmail && isPhone) {
-            Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndCompany_Id(email, companyId);
-            Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndCompany_Id(phone, companyId);
+            Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndDepartment_Id(email, departmentId);
+            Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
             if (userOptionalByPhone1.isPresent() && userOptionalByEmail1.isPresent()) {
                 User userByEmail = userOptionalByEmail1.get();
                 User userByPhone = userOptionalByPhone1.get();
@@ -201,7 +202,7 @@ public class SiteService {
 
         }
         if (isEmail) {
-            Optional<User> userOptionalByEmail = userRepository.findByEmailAndCompany_Id(email, companyId);
+            Optional<User> userOptionalByEmail = userRepository.findByEmailAndDepartment_Id(email, departmentId);
             if (userOptionalByEmail.isPresent()) {
                 User userByEmail = userOptionalByEmail.get();
                 if (userByEmail.getPhone() == null) {
@@ -219,7 +220,7 @@ public class SiteService {
             }
         }
         if (isPhone) {
-            Optional<User> userOptionalByPhone = userRepository.findByPhoneAndCompany_Id(phone, companyId);
+            Optional<User> userOptionalByPhone = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
             if (userOptionalByPhone.isPresent()) {
                 User userByPhone = userOptionalByPhone.get();
                 if (userByPhone.getEmail() == null) {
@@ -278,8 +279,9 @@ public class SiteService {
         }
         user.setCount(1);
         user.setRegisteredType(RegisteredType.WEBSITE);
-        user.setBot(botRepository.findById(botId).get());
-        user.setCompany(companyRepository.findById(companyId).get());
+//        user.setBot(botRepository.findById(botId).get());
+//        user.setCompany(companyRepository.findById(companyId).get());
+        user.setDepartment(departmentRepository.findById(departmentId).get());
         User save = userRepository.save(user);
         history.setUser(save);
         siteHistoryRepository.save(history);
@@ -291,7 +293,7 @@ public class SiteService {
     }
 
     public ApiResponse<List<Request>> getRequest() {
-        List<Request> requests = requestRepository.findAllByProduct_Category_Bot_Id(botId);
+        List<Request> requests = requestRepository.findAllByProduct_Category_Department_Id(departmentId);
         if (requests.isEmpty()) {
             return ApiResponse.<List<Request>>builder().
                     message("Requests are not found !").
@@ -308,7 +310,7 @@ public class SiteService {
     }
 
     public ApiResponse<List<SiteHistory>> getSiteHistory() {
-        List<SiteHistory> siteHistories = siteHistoryRepository.findAllByUser_Company_Id(companyId);
+        List<SiteHistory> siteHistories = siteHistoryRepository.findAllByUser_Department_Id(departmentId);
         if (siteHistories.isEmpty()) {
             return ApiResponse.<List<SiteHistory>>builder().
                     message("History are not found !").
@@ -325,7 +327,7 @@ public class SiteService {
     }
 
     public ApiResponse<?> addReview(ReviewDTO dto) {
-        Optional<User> userOptionalByPhone = userRepository.findByPhoneAndCompany_Id(dto.getPhone(), companyId);
+        Optional<User> userOptionalByPhone = userRepository.findByPhoneAndDepartment_Id(dto.getPhone(), departmentId);
         if (userOptionalByPhone.isEmpty()) {
             return ApiResponse.builder().
                     message("User not found !").
@@ -397,10 +399,10 @@ public class SiteService {
             reviewList = reviewRepository.findAll();
 
         if (Boolean.FALSE.equals(active))
-            reviewList = reviewRepository.findAllByConfirmationFalseAndUser_Bot_Id(botId);
+            reviewList = reviewRepository.findAllByConfirmationFalseAndUser_Department_Id(departmentId);
 
         if (Boolean.TRUE.equals(active))
-            reviewList = reviewRepository.findAllByConfirmationTrueAndUser_Bot_Id(botId);
+            reviewList = reviewRepository.findAllByConfirmationTrueAndUser_Department_Id(departmentId);
 
         assert reviewList != null;
         reviewList.sort(Comparator.comparing(Review::getDateTime));
@@ -422,7 +424,7 @@ public class SiteService {
 
     public ApiResponse<List<Review>> getReviewForUsers() {
 
-        List<Review> reviewList = reviewRepository.findAllByConfirmationTrueForUsers(companyId);
+        List<Review> reviewList = reviewRepository.findAllByConfirmationTrueForUsers(departmentId);
 
         if (reviewList.isEmpty()) {
             return ApiResponse.<List<Review>>builder().
@@ -449,7 +451,7 @@ public class SiteService {
                     status(400).
                     build();
         }
-        List<Request> requestList = requestRepository.findAllByUserAndProduct_Category_Bot_Id(userOptional.get(), botId, Sort.by(Sort.Direction.ASC, "dateTime"));
+        List<Request> requestList = requestRepository.findAllByUserAndProduct_Category_Department_Id(userOptional.get(), departmentId, Sort.by(Sort.Direction.ASC, "dateTime"));
         Map<String, List<Request>> collect = requestList.stream().collect(Collectors.groupingBy(Request::getCategory));
         return ApiResponse.<Map<String, List<Request>>>builder().
                 message("Here!!!").
@@ -492,8 +494,8 @@ public class SiteService {
             isPhone = !phone.equals("");
         }
         if (isEmail && isPhone) {
-            Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndCompany_Id(email, companyId);
-            Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndCompany_Id(phone, companyId);
+            Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndDepartment_Id(email, departmentId);
+            Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
             if (userOptionalByPhone1.isPresent() && userOptionalByEmail1.isPresent()) {
                 User userByEmail = userOptionalByEmail1.get();
                 User userByPhone = userOptionalByPhone1.get();
@@ -512,7 +514,7 @@ public class SiteService {
 
         }
         if (isEmail) {
-            Optional<User> userOptionalByEmail = userRepository.findByEmailAndCompany_Id(email, companyId);
+            Optional<User> userOptionalByEmail = userRepository.findByEmailAndDepartment_Id(email, departmentId);
             if (userOptionalByEmail.isPresent()) {
                 User userByEmail = userOptionalByEmail.get();
                 if (userByEmail.getPhone() == null) {
@@ -529,7 +531,7 @@ public class SiteService {
             }
         }
         if (isPhone) {
-            Optional<User> userOptionalByPhone = userRepository.findByPhoneAndCompany_Id(phone, companyId);
+            Optional<User> userOptionalByPhone = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
             if (userOptionalByPhone.isPresent()) {
                 User userByPhone = userOptionalByPhone.get();
                 if (userByPhone.getEmail() == null) {
@@ -587,8 +589,9 @@ public class SiteService {
         }
         user.setCount(1);
         user.setRegisteredType(RegisteredType.WEBSITE);
-        user.setBot(botRepository.findById(botId).get());
-        user.setCompany(companyRepository.findById(companyId).get());
+//        user.setBot(botRepository.findById(botId).get());
+//        user.setCompany(companyRepository.findById(companyId).get());
+        user.setDepartment(departmentRepository.findById(departmentId).get());
         User save = userRepository.save(user);
         return ApiResponse.<User>builder().
                 message("User saved!!!").
@@ -602,7 +605,7 @@ public class SiteService {
     @SneakyThrows
     public ResponseEntity<?> getQrCode(Long requestId, HttpServletResponse response) {
         Optional<Request> requestOptional = requestRepository.findById(requestId);
-        if (requestOptional.isEmpty() || !requestOptional.get().getProduct().getCategory().getBot().getId().equals(botId)) {
+        if (requestOptional.isEmpty() || !requestOptional.get().getProduct().getCategory().getDepartment().getId().equals(departmentId)) {
             return ResponseEntity.badRequest().body("Request not found!!!");
         }
         Request request = requestOptional.get();
@@ -621,7 +624,7 @@ public class SiteService {
 
     public ApiResponse<?> editRequest(Long id) {
         Optional<Request> requestOptional = requestRepository.findById(id);
-        if (requestOptional.isEmpty() || !requestOptional.get().getUser().getCompany().getId().equals(companyId)) {
+        if (requestOptional.isEmpty() || !requestOptional.get().getUser().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.builder().
                     message("Not found!!!").
                     status(400).
