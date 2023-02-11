@@ -31,9 +31,9 @@ public class Category {
     //    @Column(unique = true)
     private String nameEn;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @ToString.Exclude
-    private Bot bot;
+    private Department department;
 
 }
