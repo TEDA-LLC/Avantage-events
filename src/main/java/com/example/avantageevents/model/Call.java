@@ -41,4 +41,8 @@ public class Call {
 
     private boolean success;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Department department;
+
 }
