@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,15 +28,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
 
-    @Value("${telegram.bot.id}")
-    private Long botId;
+    @Value("${company.department.id}")
+    private Long departmentId;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final AttachmentRepository attachmentRepository;
     private final DistrictRepository districtRepository;
 
     public ApiResponse<List<Product>> getAll() {
-        List<Product> products = productRepository.findAllByActiveTrueAndCategory_Bot_Id(botId);
+        List<Product> products = productRepository.findAllByActiveTrueAndCategory_Department_Id(departmentId);
         return ApiResponse.<List<Product>>builder().
                 message("Here").
                 status(200).
@@ -47,7 +48,7 @@ public class ProductService {
 
     public ApiResponse<Product> getOne(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty() || !optionalProduct.get().getCategory().getBot().getId().equals(botId)) {
+        if (optionalProduct.isEmpty() || !optionalProduct.get().getCategory().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.<Product>builder().
                     message("Not Found").
                     status(204).
@@ -66,7 +67,7 @@ public class ProductService {
     @SneakyThrows
     public ApiResponse<?> save(ProductDTO productDTO) {
         Optional<Category> categoryOptional = categoryRepository.findById(productDTO.getCategoryId());
-        if (categoryOptional.isEmpty() || !categoryOptional.get().getBot().getId().equals(botId)) {
+        if (categoryOptional.isEmpty() || !categoryOptional.get().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.builder().
                     message("Category not found").
                     status(400).
@@ -108,11 +109,26 @@ public class ProductService {
         product.setDescriptionRu(productDTO.getDescriptionRu());
         product.setDescriptionUz(productDTO.getDescriptionUz());
         product.setDescriptionEn(productDTO.getDescriptionEn());
-//        if (productDTO.getFrom() != null){
-//            if (LocalDateTime.now().isAfter(productDTO.getFrom())){
-//
-//            }
-//        }
+        if (productDTO.getFrom() != null){
+            if (LocalDateTime.now().isAfter(productDTO.getFrom())){
+                product.setFromDate(productDTO.getFrom());
+            }
+            return ApiResponse.builder().
+                    message("Wrong start data time!!!").
+                    status(400).
+                    success(false).
+                    build();
+        }
+        if (productDTO.getTo() != null){
+            if (LocalDateTime.now().isAfter(productDTO.getTo())){
+                product.setToDate(productDTO.getTo());
+            }
+            return ApiResponse.builder().
+                    message("Wrong finish data time!!!").
+                    status(400).
+                    success(false).
+                    build();
+        }
 
         productRepository.save(product);
 
@@ -134,7 +150,7 @@ public class ProductService {
                     success(false).
                     build();
         }
-        if (optionalCategory.isEmpty() || !optionalCategory.get().getBot().getId().equals(botId)) {
+        if (optionalCategory.isEmpty() || !optionalCategory.get().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.builder().
                     message("Category Not Found").
                     status(204).
@@ -194,7 +210,7 @@ public class ProductService {
 
     public ApiResponse<?> delete(Long id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty() || !optionalProduct.get().getCategory().getBot().getId().equals(botId)) {
+        if (optionalProduct.isEmpty() || !optionalProduct.get().getCategory().getDepartment().getId().equals(departmentId)) {
             return ApiResponse.builder().
                     message("Product Not Found").
                     status(204).
