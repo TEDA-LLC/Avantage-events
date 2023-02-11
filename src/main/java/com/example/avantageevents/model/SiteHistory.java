@@ -28,6 +28,9 @@ public class SiteHistory {
     private LocalDateTime dateTime = LocalDateTime.now();
 
     @ManyToOne
+    private Site site;
+
+    @ManyToOne
     private User user;
 
 }
