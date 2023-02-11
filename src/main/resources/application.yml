@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   ssl:
     enabled: false
     certificate: /etc/letsencrypt/live/api.teda.uz/fullchain.pem
@@ -26,9 +26,9 @@ telegram:
   bot:
     username: avantageEvents_bot
     token: 6189750542:AAHumZZIJbwfwrdBtSwzsTffCCxboIAGVRo
-    id: 1
 debug: true
 page:
   size:20
 company:
-  id: 1
+  department:
+    id : 2
