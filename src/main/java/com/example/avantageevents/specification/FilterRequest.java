@@ -1,5 +1,6 @@
 package com.example.avantageevents.specification;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -10,9 +11,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:19   *  AvantageEvents
- */
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,7 +18,6 @@ import java.util.Collection;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class FilterRequest {
-
     private String key;
 
     private Operator operator;
@@ -44,5 +41,4 @@ public class FilterRequest {
                 .operator(Operator.EQUAL)
                 .build();
     }
-
 }

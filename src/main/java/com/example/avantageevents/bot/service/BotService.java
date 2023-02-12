@@ -7,7 +7,6 @@ import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.repository.*;
-import com.example.avantageevents.service.QRCodeService;
 import com.example.avantageevents.specification.*;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -30,7 +29,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +51,6 @@ public class BotService {
     private final WordHistoryRepository wordHistoryRepository;
     private final RequestRepository requestRepository;
     private final VacancyRepository vacancyRepository;
-    private final BotRepository botRepository;
     private final DepartmentRepository departmentRepository;
 
     public SendMessage start(String chatId) {
@@ -290,7 +287,7 @@ public class BotService {
                                 fieldType(FieldType.LONG).
                                 operator(Operator.EQUAL).
                                 value(departmentId).
-                                key("bot.id")
+                                key("department.id")
                                 .build())
                         ).build()).and(new EntitySpecification<>(searchRequest)), PageRequest.of(0, 1));
         if (category.isEmpty()) return null;

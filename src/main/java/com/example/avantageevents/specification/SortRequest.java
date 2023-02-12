@@ -8,9 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:22   *  AvantageEvents
- */
+import java.io.Serializable;
 
 @Data
 @Builder
@@ -18,8 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class SortRequest {
-
+public class SortRequest implements Serializable {
     private String key;
 
     private SortDirection direction;

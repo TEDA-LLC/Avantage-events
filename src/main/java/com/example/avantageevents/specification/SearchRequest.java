@@ -8,13 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:21   *  AvantageEvents
- */
 
 @Data
 @Builder
@@ -22,7 +19,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class SearchRequest {
+public class SearchRequest implements Serializable {
+
 
     private List<FilterRequest> filters;
 

@@ -7,9 +7,6 @@ import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:19   *  AvantageEvents
- */
 public enum Operator {
 
     EQUAL {

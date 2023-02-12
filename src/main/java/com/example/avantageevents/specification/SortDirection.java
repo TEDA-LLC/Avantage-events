@@ -4,9 +4,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:22   *  AvantageEvents
- */
 public enum SortDirection {
 
     ASC {
@@ -23,3 +20,4 @@ public enum SortDirection {
     public abstract <T> Order build(Root<T> root, CriteriaBuilder cb, SortRequest request);
 
 }
+

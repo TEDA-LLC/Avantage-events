@@ -2,9 +2,6 @@ package com.example.avantageevents.specification;
 
 import java.time.LocalDateTime;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:18   *  AvantageEvents
- */
 public enum FieldType {
 
     BOOLEAN {

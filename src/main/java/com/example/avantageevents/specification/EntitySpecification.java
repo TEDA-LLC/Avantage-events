@@ -1,24 +1,18 @@
 package com.example.avantageevents.specification;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
-import javax.persistence.criteria.Order;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * @author Malikov Azizjon  *  09.02.2023  *  23:17   *  AvantageEvents
- */
-
-@Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EntitySpecification<T> implements Specification<T> {
+
 
     private final transient SearchRequest request;
 
@@ -26,7 +20,7 @@ public class EntitySpecification<T> implements Specification<T> {
         return PageRequest.of(Objects.requireNonNullElse(page, 0), Objects.requireNonNullElse(size, 100));
     }
 
-    public static <D> Expression<D> getExpression(Root<?> root, String requestKey){
+    public static <D>Expression<D> getExpression(Root<?> root, String requestKey){
         Expression<D> key;
         String[] split = requestKey.split("\\.");
         assert split[0]!=null;
@@ -63,5 +57,4 @@ public class EntitySpecification<T> implements Specification<T> {
         query.orderBy(orders);
         return predicate;
     }
-
 }
