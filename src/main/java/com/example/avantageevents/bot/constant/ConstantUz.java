@@ -22,20 +22,20 @@ public interface ConstantUz {
     String VACANCY_BUTTON = "Vakansiya \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Asosiy menyu : ";
     String ABOUT_US = """
-            <b>IBRAT Club\s
+            <b>Avantage\s
             \s
-            </b>Hozirgi kunda rivojlanib borayotgan O'zbekiston xalqining hayotini yaxshilash.
-            Raqamli Iqtisodiyot bosqichida ko'plab tadbirkorlarning xizmatlarini elektronlashtirish va ularni qulay narxda taklif qilish.
+            </b>Har qanday turdagi tadbirlarni tashkil etish va o'tkazish vazifasini o'z zimmasiga oladigan, shuningdek, yuqori sifatli va qiziqarli tadbirlarni o'tkazish imkonini beruvchi ijara uchun eng yaxshi jihozlarni taqdim eta oladigan kompaniyalardan biri.
 
-            \uD83C\uDF10 <a href="https://ibrat.teda.uz/"> ibrat.teda.uz</a>
+            \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Termiz sh. Baynalminal mahalla,Fazilat ko`chasi 4/7</b>
-            \uD83D\uDCF8 <a href="https://www.instagram.com/ibrat_club/"> @ibrat_club</a>
+            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, A.Temur ko`chasi, 100202</b>
+            \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>
-            \uD83D\uDC64 <b> Manager : @ibrat_club_menejer</b>
-            """;
+            \uD83D\uDC64 <b> Manager :info@avantage.events</b>""" +
+            "\uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulug`bek f-li Toshkent shahar</b>\n" +
+            "<b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\n";
 
     String VACANCY = "Hozircha vakansiya yo`q \n" ;
     //            "\uD83D\uDC64 Manager : @Proekt_Manager\n";
