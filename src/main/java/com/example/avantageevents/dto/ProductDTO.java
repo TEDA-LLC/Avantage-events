@@ -24,7 +24,8 @@ public class ProductDTO {
     private MultipartFile attachment;
 
     @JsonFormat(pattern="yyyy-MM-ddTHH:mm")
-    private LocalDateTime from, to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     private Double price;
 
 }
