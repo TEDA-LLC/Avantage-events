@@ -22,20 +22,20 @@ public interface ConstantEn {
     String VACANCY_BUTTON = "Vacancy \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Main menu : ";
     String ABOUT_US = """
-            <b>IBRAT Club\s
+            <b>AVANTAGE LLC\s
             \s
             </b>Improving the life of the people of Uzbekistan, which is developing today.
 
             At the stage of the digital economy, the services of many entrepreneurs are being digitalized and offered at an affordable price.
 
-            \uD83C\uDF10 <a href="https://ibrat.teda.uz/"> ibrat.teda.uz</a>
-            ☎ <b>+998 (93) 159 25 58</b>
+            \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
+            ☎ <b>+998 (95) 144 04 40</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Termiz C, Bayniminal district, Fazilat Street 4/7</b>
-            \uD83D\uDCF8 <a href="https://www.instagram.com/ibrat_club/"> @ibrat_club</a>
+            \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, A.Temur street, 100202</b>
+            \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Leave your question to our manager and </b>
             <b> our manager will answer you as soon as possible.</b>
-            \uD83D\uDC64 <b> Manager : @ibrat_club_menejer</b>
+            \uD83D\uDC64 <b> Manager : info@avantage.events</b>
             """;
     String VACANCY = "There are currently no vacancies\n" ;
     //            "\uD83D\uDC64 Manager : @Proekt_Manager\n";
