@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Malikov Azizjon  *  06.02.2023  *  13:24   *  AvantageEvents
@@ -42,5 +43,7 @@ public class Product {
     @Builder.Default
     @Column(nullable = true)
     private boolean active = true;
-
+    @OneToMany
+    @ToString.Exclude
+    private List<User> speakers;
 }

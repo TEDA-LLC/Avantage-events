@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Malikov Azizjon  *  06.02.2023  *  13:26   *  AvantageEvents
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 public class ProductDTO {
 
     private String nameUz, nameRu, nameEn, descriptionUz, descriptionRu, descriptionEn;
-
+    private List<Long> speakersId;
     private Long categoryId;
     private AddressDTO address;
     private MultipartFile attachment;

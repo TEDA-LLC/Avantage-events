@@ -4,10 +4,7 @@ import com.example.avantageevents.dto.AddressDTO;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.ProductDTO;
 import com.example.avantageevents.model.*;
-import com.example.avantageevents.repository.AttachmentRepository;
-import com.example.avantageevents.repository.CategoryRepository;
-import com.example.avantageevents.repository.DistrictRepository;
-import com.example.avantageevents.repository.ProductRepository;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +31,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final AttachmentRepository attachmentRepository;
     private final DistrictRepository districtRepository;
+    private final UserRepository userRepository;
 
     public ApiResponse<List<Product>> getAll() {
         List<Product> products = productRepository.findAllByActiveTrueAndCategory_Department_Id(departmentId);
@@ -129,7 +127,12 @@ public class ProductService {
                     success(false).
                     build();
         }
+        if(productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
+            List<User> speakersList = userRepository.findAllById(productDTO.getSpeakersId());
+            product.setSpeakers(speakersList);
+        }
 
+        productRepository.save(product);
         productRepository.save(product);
 
         return ApiResponse.builder().
@@ -197,7 +200,10 @@ public class ProductService {
         product.setDescriptionEn(productDTO.getDescriptionEn());
         product.setPrice(productDTO.getPrice());
         product.setCategory(optionalCategory.get());
-
+        if(productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
+            List<User> speakersList = userRepository.findAllById(productDTO.getSpeakersId());
+            product.setSpeakers(speakersList);
+        }
 
         productRepository.save(product);
 
