@@ -3,13 +3,21 @@ package com.example.avantageevents.controller;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.RequestDTO;
 import com.example.avantageevents.dto.ReviewDTO;
-import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.Country;
+import com.example.avantageevents.model.District;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.Region;
+import com.example.avantageevents.model.Request;
+import com.example.avantageevents.model.Review;
+import com.example.avantageevents.model.SiteHistory;
+import com.example.avantageevents.model.User;
 import com.example.avantageevents.service.AddressService;
 import com.example.avantageevents.service.ProductService;
 import com.example.avantageevents.service.SiteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -139,5 +147,9 @@ public class SiteController {
     public ResponseEntity<?> getPhoto(@PathVariable Long id){
         return productService.getPhoto(id);
     }
-
+    @PatchMapping("/editphoto")
+    public ResponseEntity<?> editPhoto(@ModelAttribute MultipartFile photo){
+        ApiResponse<?> response = siteService.editPhoto(photo);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }

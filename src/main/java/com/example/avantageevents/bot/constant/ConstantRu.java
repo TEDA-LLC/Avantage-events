@@ -51,7 +51,7 @@ public interface ConstantRu {
 //            "Наш менеджер свяжется с вами в ближайшее время.";
     String RESPONSE_FOR_REQUEST= "Ваш запрос успешно получен.✅\n" +
             "";
-    String MY_REQUESTS = "Мои Заявки \uD83C\uDFAF";
+    String MY_REQUESTS = "Мои Выставки \uD83C\uDFAF";
 
     String MY_REQUESTS_EMPTY = "У вас пока нет заявки";
 

@@ -130,7 +130,8 @@ public class BotService {
         else if (language.equals(Language.RUS))
             sendPhoto.setCaption(ConstantRu.ABOUT_US);
         else sendPhoto.setCaption(ConstantEn.ABOUT_US);
-        sendPhoto.setPhoto(new InputFile(new ByteArrayInputStream(bot.getLogo().getBytes()), bot.getLogo().getOriginalName()));
+        Attachment logo = bot.getLogo();
+        sendPhoto.setPhoto(new InputFile(new ByteArrayInputStream(logo.getBytes()), logo.getOriginalName()));
         sendPhoto.setChatId(chatId);
 
         sendPhoto.setReplyMarkup(buttonService.menuButton(language));
@@ -604,7 +605,7 @@ public class BotService {
 
     public SendLocation getLocation(Update update, User currentUser) {
         Long productId = Long.valueOf(update.getCallbackQuery().getData().substring(8));
-        Optional<Product> productOptional = productRepository.findById(Long.valueOf(productId));
+        Optional<Product> productOptional = productRepository.findById(productId);
         Product product = productOptional.get();
         SendLocation sendLocation = new SendLocation();
         sendLocation.setChatId(String.valueOf(update.getCallbackQuery().getMessage().getChatId()));
