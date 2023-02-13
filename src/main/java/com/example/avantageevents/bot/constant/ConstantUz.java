@@ -27,7 +27,7 @@ public interface ConstantUz {
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58  +998 (97) 716 63 44</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo lug`bek shoh ko`chasi</b>
+            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo lug`bek shoh ko`chasi 87</b>
             \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>

@@ -27,7 +27,7 @@ public interface ConstantEn {
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (95) 144 04 40  +998 (97) 716 63 44</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, Mirzo Ulugbek street</b>
+            \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, Mirzo Ulugbek street 87</b>
             \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Leave your question to our manager and </b>
             <b> our manager will answer you as soon as possible.</b>
