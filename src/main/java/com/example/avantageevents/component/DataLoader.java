@@ -69,6 +69,8 @@ public class DataLoader implements CommandLineRunner {
             company.setName("Avantage");
             company.setDepartmentList(List.of(departmentSave));
             companyRepository.save(company);
+            departmentSave.setCompany(company);
+            departmentRepository.save(departmentSave);
 //            company.setBotList(List.of(save));
 
         }
