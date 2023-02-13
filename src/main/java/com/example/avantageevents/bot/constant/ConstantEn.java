@@ -22,7 +22,7 @@ public interface ConstantEn {
     String VACANCY_BUTTON = "Vacancy \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Main menu : ";
     String ABOUT_US = """
-            <b>AVANTAGE LLC\s
+            <b>AVANTAGE LLC</b>\s
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (95) 144 04 40  +998 (97) 716 63 44</b>

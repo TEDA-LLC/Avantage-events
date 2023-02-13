@@ -22,7 +22,7 @@ public interface ConstantUz {
     String VACANCY_BUTTON = "Vakansiya \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Asosiy menyu : ";
     String ABOUT_US = """
-            <b>Avantage\s
+            <b>Avantage</b>\s
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58  +998 (97) 716 63 44</b>

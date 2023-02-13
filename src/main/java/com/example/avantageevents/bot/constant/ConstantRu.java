@@ -22,7 +22,7 @@ public interface ConstantRu {
     String VACANCY_BUTTON = "Вакансия \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Главное меню : ";
     String ABOUT_US = """
-            <b>ООО AVANTAGE\s
+            <b>ООО AVANTAGE</b>\s
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (95) 144 04 40  +998 (97) 716 63 44</b>
