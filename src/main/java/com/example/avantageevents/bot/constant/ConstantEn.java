@@ -30,7 +30,7 @@ public interface ConstantEn {
 
             \uD83C\uDF10 <a href="https://ibrat.teda.uz/"> ibrat.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58</b>
-            \uD83D\uDCE7 <b>ibratclub@gmail.com</b>
+            \uD83D\uDCE7 <b>info@avantage.events</b>
             \uD83D\uDCCD <b>Termiz C, Bayniminal district, Fazilat Street 4/7</b>
             \uD83D\uDCF8 <a href="https://www.instagram.com/ibrat_club/"> @ibrat_club</a>
             <b>Leave your question to our manager and </b>
