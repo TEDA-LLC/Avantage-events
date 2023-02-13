@@ -6,7 +6,9 @@ import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.model.enums.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.hibernate.id.UUIDGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -77,6 +79,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @JsonIgnore
     @Column(unique = true)
-    private UUID qrcode;
+    private UUID qrcode = UUID.randomUUID();
 
 }
