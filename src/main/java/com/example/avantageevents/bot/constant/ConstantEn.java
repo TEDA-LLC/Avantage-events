@@ -24,9 +24,7 @@ public interface ConstantEn {
     String ABOUT_US = """
             <b>AVANTAGE LLC\s
             \s
-            </b>Improving the life of the people of Uzbekistan, which is developing today.
-
-            At the stage of the digital economy, the services of many entrepreneurs are being digitalized and offered at an affordable price.
+            </b>AVANTAGE is one of those companies that can take on the task of organizing and holding any type of event, as well as provide the best equipment for renting, allowing you to conduct high-quality and interesting events.
 
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (95) 144 04 40</b>
