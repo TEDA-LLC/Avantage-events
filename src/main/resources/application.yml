@@ -27,6 +27,8 @@ telegram:
   bot:
     username: avantageEvents_bot
     token: 6189750542:AAHumZZIJbwfwrdBtSwzsTffCCxboIAGVRo
+#    username: Uzb_Namaz_Times_bot
+#    token: 5082104093:AAEtEN22_VScHuRU7mgdvI8H-1p6v8hn8KU
 debug: true
 page:
   size: 20
