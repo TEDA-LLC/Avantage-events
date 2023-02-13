@@ -24,12 +24,10 @@ public interface ConstantEn {
     String ABOUT_US = """
             <b>AVANTAGE LLC\s
             \s
-            </b>AVANTAGE is one of those companies that can take on the task of organizing and holding any type of event, as well as provide the best equipment for renting, allowing you to conduct high-quality and interesting events.
-
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
-            ☎ <b>+998 (95) 144 04 40</b>
+            ☎ <b>+998 (95) 144 04 40  +998 (97) 716 63 44</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, A.Temur street, 100202</b>
+            \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, Mirzo Ulugbek street</b>
             \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Leave your question to our manager and </b>
             <b> our manager will answer you as soon as possible.</b>

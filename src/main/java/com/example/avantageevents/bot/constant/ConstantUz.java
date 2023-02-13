@@ -24,12 +24,10 @@ public interface ConstantUz {
     String ABOUT_US = """
             <b>Avantage\s
             \s
-            </b>Har qanday turdagi tadbirlarni tashkil etish va o'tkazish vazifasini o'z zimmasiga oladigan, shuningdek, yuqori sifatli va qiziqarli tadbirlarni o'tkazish imkonini beruvchi ijara uchun eng yaxshi jihozlarni taqdim eta oladigan kompaniyalardan biri.
-
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
-            ☎ <b>+998 (93) 159 25 58</b>
+            ☎ <b>+998 (93) 159 25 58  +998 (97) 716 63 44</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, A.Temur ko`chasi, 100202</b>
+            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo lug`bek shoh ko`chasi</b>
             \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>
