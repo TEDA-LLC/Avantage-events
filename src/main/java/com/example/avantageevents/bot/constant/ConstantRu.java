@@ -22,20 +22,21 @@ public interface ConstantRu {
     String VACANCY_BUTTON = "Вакансия \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Главное меню : ";
     String ABOUT_US = """
-            <b>IBRAT Club\s
+            <b>ООО AVANTAGE\s
             \s
             </b>Улучшение жизни народа Узбекистана, которая развивается сегодня.
             На этапе цифровой экономики оцифровка услуг многих предпринимателей и предложение их по доступной цене.
 
-            \uD83C\uDF10 <a href="https://ibrat.teda.uz/"> ibrat.teda.uz</a>
-            ☎ <b>+998 (93) 159 25 58</b>
+            \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
+            ☎ <b>+998 (95) 144 04 40</b>
             \uD83D\uDCE7 <b>info@avantage.events</b>
-            \uD83D\uDCCD <b>Г. Термез, Байниминал, Фазилат улица 4/7</b>
-            \uD83D\uDCF8 <a href="https://www.instagram.com/ibrat_club/"> @ibrat_club</a>
+            \uD83D\uDCCD <b>100202, г. Ташкент, ул. А.Темура</b>
+            \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Оставьте свой вопрос нашему менеджеру и</b>
             <b> наш менеджер ответит вам в ближайшее время.</b>
-            \uD83D\uDC64 <b>Менеджер : @ibrat_club_menejer</b>
-            """;
+            \uD83D\uDC64 <b>Менеджер : info@avantage.events</b>""" +
+            "\uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Давр Банк» Мирзо Улугбекский филиал г. Ташкент</b>\n" +
+            "<b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\n";
     String VACANCY = "Вакансий пока нет \n" ;
     //            "\uD83D\uDC64 Менеджер : @Proekt_Manager\n";
     String LANGUAGE = "Изменить язык \uD83C\uDDF7\uD83C\uDDFA/\uD83C\uDDFA\uD83C\uDDFF/\uD83C\uDDEC\uD83C\uDDE7";
