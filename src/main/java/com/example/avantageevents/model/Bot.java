@@ -1,7 +1,11 @@
 package com.example.avantageevents.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -41,7 +45,8 @@ public class Bot {
 //    private List<Vacancy> vacancies;
     @Column(nullable = false)
     private boolean active = true;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Attachment logo;
 
 }

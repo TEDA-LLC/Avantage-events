@@ -44,12 +44,12 @@ public class ButtonService {
         KeyboardButton button2 = new KeyboardButton();
         KeyboardButton button3 = new KeyboardButton();
         KeyboardButton button4 = new KeyboardButton();
-        KeyboardButton button5 = new KeyboardButton();
+//        KeyboardButton button5 = new KeyboardButton();
 
         if (language.equals(Language.UZB)) {
             button.setText(ConstantUz.SERVICES_BUTTON);
             button1.setText(ConstantUz.EVENTS_BUTTON);
-            button5.setText(ConstantUz.VACANCY_BUTTON);
+//            button5.setText(ConstantUz.VACANCY_BUTTON);
 
             button3.setText(ConstantUz.SETTINGS_BUTTON);
             button4.setText(ConstantUz.ABOUT_US_BUTTON);
@@ -57,7 +57,7 @@ public class ButtonService {
         } else if (language.equals(Language.ENG)) {
             button.setText(ConstantEn.SERVICES_BUTTON);
             button1.setText(ConstantEn.EVENTS_BUTTON);
-            button5.setText(ConstantEn.VACANCY_BUTTON);
+//            button5.setText(ConstantEn.VACANCY_BUTTON);
 
             button3.setText(ConstantEn.SETTINGS_BUTTON);
             button4.setText(ConstantEn.ABOUT_US_BUTTON);
@@ -65,7 +65,7 @@ public class ButtonService {
         } else {
             button.setText(ConstantRu.SERVICES_BUTTON);
             button1.setText(ConstantRu.EVENTS_BUTTON);
-            button5.setText(ConstantRu.VACANCY_BUTTON);
+//            button5.setText(ConstantRu.VACANCY_BUTTON);
 
             button3.setText(ConstantRu.SETTINGS_BUTTON);
             button4.setText(ConstantRu.ABOUT_US_BUTTON);
@@ -73,7 +73,7 @@ public class ButtonService {
         }
         row.add(button);
         row.add(button1);
-        row.add(button5);
+//        row.add(button5);
         row1.add(button3);
         row1.add(button4);
         row1.add(button2);

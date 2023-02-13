@@ -11,9 +11,10 @@ public interface ConstantUz {
             """;
     String BUTTON = "O'zbekcha \uD83C\uDDFA\uD83C\uDDFF";
     String CONTACT_BUTTON = "Raqamni jo'natish \uD83D\uDCDE";
-    String CONTACT = "Telefon raqamingizni kiriting\n" +
-            " \n" +
-            "<RAQAMNI JO'NATISH> tugmasi yordamida raqamni yuboring";
+    String CONTACT = """
+            Telefon raqamingizni kiriting
+            \s
+            <RAQAMNI JO'NATISH> tugmasi yordamida raqamni yuboring""";
     String ABOUT_US_BUTTON = "Biz haqimizda \uD83D\uDD0E";
     String SERVICES_BUTTON = "Xizmatlar \uD83D\uDEE0";
     String EVENTS_BUTTON = "Tadbirlar \uD83D\uDCBB";
@@ -52,7 +53,7 @@ public interface ConstantUz {
 //            "Tez orada menejerimiz aloqaga chiqadi.";
     String RESPONSE_FOR_REQUEST = "Murojaatingiz muvafaqiyatli qabul qilindi.✅\n" +
             "";
-    String MY_REQUESTS = "Mening Murojaatlarim \uD83C\uDFAF";
+    String MY_REQUESTS = "Mening Tadbirlarim \uD83C\uDFAF";
 
     String MY_REQUESTS_EMPTY = "Sizda hali hech qanday murojatlar mavjud emas";
 
