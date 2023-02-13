@@ -33,9 +33,9 @@ public interface ConstantEn {
             \uD83D\uDCF8 <a href="https://www.instagram.com/avantage.events.agency/">@avantage.events.agency</a>
             <b>Leave your question to our manager and </b>
             <b> our manager will answer you as soon as possible.</b>
-            \uD83D\uDC64 <b> Manager : info@avantage.events</b>""" +
-            "\uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulugbek branch Tashkent C</b>\n" +
-            "<b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\n";
+            \uD83D\uDC64 <b> Manager : info@avantage.events</b>\s
+            "\uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulugbek branch Tashkent C</b>\n
+            "<b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\n""";
     String VACANCY = "There are currently no vacancies\n" ;
     //            "\uD83D\uDC64 Manager : @Proekt_Manager\n";
     String LANGUAGE = "Change language \uD83C\uDDF7\uD83C\uDDFA/\uD83C\uDDFA\uD83C\uDDFF/\uD83C\uDDEC\uD83C\uDDE7";
