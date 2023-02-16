@@ -111,6 +111,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 //                                    currentUser.setState(State.CONTACT);
                                     currentUser.setLastOperationTime(LocalDateTime.now());
                                     userRepository.save(currentUser);
+                                    execute(botService.deleteMessage(chatId, update.getMessage().getMessageId()-1));
                                     execute(botService.region(currentUser, update.getMessage()));
                                 }
                                 case CONTACT -> {
@@ -284,6 +285,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             address.setRegion(regionRepository.findById(regionId).get());
                             currentUser.setAddress(addressRepository.save(address));
                             currentUser = userRepository.save(currentUser);
+                            execute(botService.deleteMessage(chatId, callbackQuery.getMessage().getMessageId()));
                             execute(botService.menu(currentUser.getChatId(), currentUser.getLanguage()));
                         }
                     }
