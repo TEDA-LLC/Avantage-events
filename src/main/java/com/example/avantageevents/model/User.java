@@ -1,16 +1,27 @@
 package com.example.avantageevents.model;
 
-import com.example.avantageevents.model.enums.Gender;
-import com.example.avantageevents.model.enums.Language;
-import com.example.avantageevents.model.enums.RegisteredType;
-import com.example.avantageevents.model.enums.State;
+import com.example.avantageevents.model.enums.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.*;
-import org.hibernate.id.UUIDGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -57,10 +68,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Department department;
-    //    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @ToString.Exclude
-//    private Bot bot;
     private int count = 0;
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate brithDate;
@@ -80,5 +87,9 @@ public class User {
     @JsonIgnore
     @Column(unique = true)
     private UUID qrcode = UUID.randomUUID();
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+    @Column(nullable = true)
+    private boolean resident = true;
 
 }

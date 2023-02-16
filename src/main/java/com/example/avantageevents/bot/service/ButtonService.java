@@ -3,10 +3,10 @@ package com.example.avantageevents.bot.service;
 import com.example.avantageevents.bot.constant.ConstantEn;
 import com.example.avantageevents.bot.constant.ConstantRu;
 import com.example.avantageevents.bot.constant.ConstantUz;
-import com.example.avantageevents.model.Category;
-import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.repository.CategoryRepository;
+import com.example.avantageevents.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -29,6 +29,7 @@ import java.util.List;
 public class ButtonService {
 
     private final CategoryRepository categoryRepository;
+    private final RegionRepository regionRepository;
 
     public ReplyKeyboardMarkup menuButton(Language language) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -285,4 +286,18 @@ public class ButtonService {
         return inlineKeyboardMarkup;
     }
 
+    public InlineKeyboardMarkup regions( Country country) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
+        List<Region> regionList = regionRepository.findAllByCountry_Id(country.getId());
+        for (Region region : regionList) {
+            InlineKeyboardButton button = new InlineKeyboardButton();
+            button.setText(region.getName());
+            button.setCallbackData("$region" + region.getId());
+            buttons.add(List.of(button));
+        }
+        inlineKeyboardMarkup.setKeyboard(buttons);
+        return inlineKeyboardMarkup;
+    }
 }
+

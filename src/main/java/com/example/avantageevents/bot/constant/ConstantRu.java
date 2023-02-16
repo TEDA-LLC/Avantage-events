@@ -32,9 +32,9 @@ public interface ConstantRu {
             <b>Оставьте свой вопрос нашему менеджеру и</b>
             <b> наш менеджер ответит вам в ближайшее время.</b>
             \uD83D\uDC64 <b>Менеджер : info@avantage.events</b>\s""";
-//            \uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Давр Банк» Мирзо Улугбекский филиал г. Ташкент</b>\s
+    //            \uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Давр Банк» Мирзо Улугбекский филиал г. Ташкент</b>\s
 //            <b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\s""";
-    String VACANCY = "Вакансий пока нет \n" ;
+    String VACANCY = "Вакансий пока нет \n";
     //            "\uD83D\uDC64 Менеджер : @Proekt_Manager\n";
     String LANGUAGE = "Изменить язык \uD83C\uDDF7\uD83C\uDDFA/\uD83C\uDDFA\uD83C\uDDFF/\uD83C\uDDEC\uD83C\uDDE7";
     String PHONE = "Изменить номер \uD83D\uDCDE";
@@ -47,10 +47,13 @@ public interface ConstantRu {
     String REQUEST = "Заявка\uD83D\uDCCC";
     //    String RESPONSE_FOR_REQUEST= "Ваш запрос успешно получен.✅\n" +
 //            "Наш менеджер свяжется с вами в ближайшее время.";
-    String RESPONSE_FOR_REQUEST= "Ваш запрос успешно получен.✅\n" +
+    String RESPONSE_FOR_REQUEST = "Ваш запрос успешно получен.✅\n" +
             "";
     String MY_REQUESTS = "Мои Выставки \uD83C\uDFAF";
 
     String MY_REQUESTS_EMPTY = "У вас пока нет заявки";
-
+    String SELECT_COUNTRY = "Пожалуйста, пришлите мне код вашего округа \n (Пример: Uzbekistan -> Uz)";
+    String ERROR_COUNTRY = "По введенной вами информации не найдено информации.\n" +
+            "Пожалуйста, введите еще раз:";
+    String SELECT_REGION = "Пожалуйста, выберите свой регион: ";
 }

@@ -76,7 +76,7 @@ public class SiteController {
     }
 
     @PostMapping("/history")
-    public ResponseEntity<?> main(@RequestBody SiteHistory history, @RequestParam(required = false) String phone, @RequestParam String email) {
+    public ResponseEntity<?> main(@RequestBody SiteHistory history, @RequestParam(required = false) String phone, @RequestParam(required = false) String email) {
         ApiResponse<?> response = siteService.historyWriter(history, phone, email);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

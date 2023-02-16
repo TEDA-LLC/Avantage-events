@@ -52,4 +52,8 @@ public interface ConstantEn {
     String MY_REQUESTS = "My Events \uD83C\uDFAF";
     String MY_REQUESTS_EMPTY = "You don't have any requests";
 
+    String SELECT_COUNTRY = "Please send me code your county \n (Example: Uzbekistan -> Uz)";
+    String ERROR_COUNTRY = "No information was found for the information you entered.\n" +
+            "Please re-enter: ";
+    String SELECT_REGION = "Please choose your region: ";
 }

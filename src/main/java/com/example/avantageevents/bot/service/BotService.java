@@ -6,6 +6,7 @@ import com.example.avantageevents.bot.constant.ConstantUz;
 import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.model.enums.RegisteredType;
+import com.example.avantageevents.model.enums.State;
 import com.example.avantageevents.repository.*;
 import com.example.avantageevents.specification.*;
 import com.google.zxing.BarcodeFormat;
@@ -52,6 +53,9 @@ public class BotService {
     private final RequestRepository requestRepository;
     private final VacancyRepository vacancyRepository;
     private final DepartmentRepository departmentRepository;
+    private final UserRepository userRepository;
+    private final CountryRepository countryRepository;
+    private final AddressRepository addressRepository;
 
     public SendMessage start(String chatId) {
         return SendMessage.builder()
@@ -614,4 +618,59 @@ public class BotService {
         return sendLocation;
     }
 
+    public SendMessage country(User currentUser) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(currentUser.getChatId());
+        if (currentUser.getLanguage().equals(Language.ENG))
+            sendMessage.setText(ConstantEn.SELECT_COUNTRY);
+        else if (currentUser.getLanguage().equals(Language.RUS))
+            sendMessage.setText(ConstantRu.SELECT_COUNTRY);
+        else
+            sendMessage.setText(ConstantUz.SELECT_COUNTRY);
+        return sendMessage;
+    }
+
+    public SendMessage region(User currentUser, Message message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(currentUser.getChatId());
+        String text = message.getText();
+        currentUser.setState(State.REGION);
+        userRepository.save(currentUser);
+        Optional<Country> countryOptional = countryRepository.findByShortNameEqualsIgnoreCase(text);
+        if (countryOptional.isEmpty()) {
+            if (currentUser.getLanguage().equals(Language.ENG))
+                sendMessage.setText(ConstantEn.ERROR_COUNTRY);
+            else if (currentUser.getLanguage().equals(Language.RUS))
+                sendMessage.setText(ConstantRu.ERROR_COUNTRY);
+            else
+                sendMessage.setText(ConstantUz.ERROR_COUNTRY);
+        } else {
+            Country country = countryOptional.get();
+            Address address = new Address();
+            if (currentUser.getAddress() != null)
+                address = currentUser.getAddress();
+            address.setCountry(country);
+            currentUser.setAddress(addressRepository.save(address));
+
+            if (country.getShortName().equalsIgnoreCase("uz")) {
+                InlineKeyboardMarkup inlineKeyboardMarkup = buttonService.regions(country);
+                if (currentUser.getLanguage().equals(Language.ENG)) {
+                    sendMessage.setText(ConstantEn.SELECT_REGION);
+                } else if (currentUser.getLanguage().equals(Language.RUS)) {
+                    sendMessage.setText(ConstantRu.SELECT_REGION);
+                } else {
+                    sendMessage.setText(ConstantUz.SELECT_REGION);
+                }
+                sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+                currentUser.setResident(true);
+                userRepository.save(currentUser);
+            } else {
+                currentUser.setState(State.CONTACT);
+                currentUser.setResident(false);
+                currentUser = userRepository.save(currentUser);
+                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
+            }
+        }
+        return sendMessage;
+    }
 }

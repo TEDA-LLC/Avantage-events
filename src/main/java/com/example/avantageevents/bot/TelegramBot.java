@@ -4,7 +4,10 @@ import com.example.avantageevents.bot.constant.ConstantEn;
 import com.example.avantageevents.bot.constant.ConstantRu;
 import com.example.avantageevents.bot.constant.ConstantUz;
 import com.example.avantageevents.bot.service.BotService;
-import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.Address;
+import com.example.avantageevents.model.Department;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.User;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.model.enums.State;
@@ -33,16 +36,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     private String userName;
     @Value("${telegram.bot.token}")
     private String botToken;
-    //    @Value("${telegram.bot.id}")
-//    private Long botId;
     @Value("${company.department.id}")
     private Long departmentId;
-    private final CompanyRepository companyRepository;
     private final BotService botService;
     private final UserRepository userRepository;
-    private final BotRepository botRepository;
     private final ProductRepository productRepository;
     private final DepartmentRepository departmentRepository;
+    private final RegionRepository regionRepository;
+    private final AddressRepository addressRepository;
 
     @Override
     public String getBotUsername() {
@@ -64,7 +65,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                 User currentUser;
                 if (update.hasMessage()) {
                     Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
-                    Bot bot = departmentOptional.get().getBot();
                     Message message = update.getMessage();
                     String chatId = String.valueOf(message.getChatId());
                     Optional<User> optionalUser = userRepository.findByDepartment_IdAndChatId(departmentId, chatId);
@@ -76,14 +76,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 currentUser.setFullName(update.getMessage().getFrom().getFirstName());
                             } else {
                                 currentUser = new User();
-//                                currentUser.setCompany(companyRepository.findById(companyId).get());
                                 currentUser.setDepartment(departmentOptional.get());
                                 currentUser.setChatId(String.valueOf(update.getMessage().getChatId()));
                                 currentUser.setRegisteredType(RegisteredType.BOT);
                                 currentUser.setFullName(message.getFrom().getFirstName());
                                 currentUser.setUsername(message.getFrom().getUserName());
                                 currentUser.setState(State.START);
-//                                currentUser.setBot(bot);
                             }
                             currentUser.setLastOperationTime(LocalDateTime.now());
                             userRepository.save(currentUser);
@@ -109,6 +107,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                         } else {
                             currentUser = optionalUser.get();
                             switch (currentUser.getState()) {
+                                case REGION -> {
+//                                    currentUser.setState(State.CONTACT);
+                                    currentUser.setLastOperationTime(LocalDateTime.now());
+                                    userRepository.save(currentUser);
+                                    execute(botService.region(currentUser, update.getMessage()));
+                                }
                                 case CONTACT -> {
                                     if (message.getText().equals(ConstantUz.ABOUT_US_BUTTON) || message.getText().equals(ConstantRu.ABOUT_US_BUTTON) || message.getText().equals(ConstantEn.ABOUT_US_BUTTON)) {
                                         currentUser.setLastOperationTime(LocalDateTime.now());
@@ -192,7 +196,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 }
                                 Optional<User> byPhone = userRepository.findByPhoneAndDepartment_Id(phoneNumber, departmentId);
                                 user.setPhone(message.getContact().getPhoneNumber());
-                                user.setState(State.CONTACT);
+                                user.setState(State.COUNTRY);
                                 user.setLastOperationTime(LocalDateTime.now());
                                 if (byPhone.isPresent() && !byPhone.get().getId().equals(user.getId())) {
                                     User user1 = byPhone.get();
@@ -200,19 +204,20 @@ public class TelegramBot extends TelegramLongPollingBot {
                                     user1.setPhone(phoneNumber);
                                     user1.setCount(user1.getCount() + user.getCount());
                                     user1.setLastOperationTime(LocalDateTime.now());
-//                                    user1.setBot(user.getBot());
                                     user1.setLanguage(user.getLanguage());
                                     user1.setChatId(user.getChatId());
                                     user1.setUsername(user.getUsername());
-//                                    user1.setCompany(user.getCompany());
                                     user1.setDepartment(user.getDepartment());
                                     userRepository.save(user1);
                                     userRepository.delete(user);
                                 } else {
-//                                    user.setCompany(companyRepository.findById(companyId).get());
                                     userRepository.save(user);
                                 }
-                                execute(botService.menu(chatId, user.getLanguage()));
+                                user.setState(State.REGION);
+                                user.setLastOperationTime(LocalDateTime.now());
+                                userRepository.save(user);
+                                execute(botService.country(user));
+//                                execute(botService.menu(chatId, user.getLanguage()));
                             }
                             case SETTINGS -> {
                                 user.setPhone(message.getContact().getPhoneNumber());
@@ -220,6 +225,12 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 userRepository.save(user);
                                 execute(botService.edited(chatId, user.getLanguage()));
                             }
+//                            case COUNTRY -> {
+//                                user.setState(State.REGION);
+//                                user.setLastOperationTime(LocalDateTime.now());
+//                                userRepository.save(user);
+//                                execute(botService.country(user));
+//                            }
                         }
                     }
                 } else if (update.hasCallbackQuery()) {
@@ -262,6 +273,18 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 userRepository.save(currentUser);
                                 execute(botService.menu(chatId, currentUser.getLanguage()));
                             }
+                        }
+                        case REGION -> {
+                            currentUser.setState(State.CONTACT);
+                            currentUser.setLastOperationTime(LocalDateTime.now());
+                            Long regionId = Long.valueOf(update.getCallbackQuery().getData().substring(7));
+                            Address address = new Address();
+                            if (currentUser.getAddress() != null)
+                                address = currentUser.getAddress();
+                            address.setRegion(regionRepository.findById(regionId).get());
+                            currentUser.setAddress(addressRepository.save(address));
+                            currentUser = userRepository.save(currentUser);
+                            execute(botService.menu(currentUser.getChatId(), currentUser.getLanguage()));
                         }
                     }
                 }

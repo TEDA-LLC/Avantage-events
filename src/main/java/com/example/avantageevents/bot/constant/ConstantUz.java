@@ -54,5 +54,7 @@ public interface ConstantUz {
     String MY_REQUESTS = "Mening Tadbirlarim \uD83C\uDFAF";
 
     String MY_REQUESTS_EMPTY = "Sizda hali hech qanday murojatlar mavjud emas";
-
+    String SELECT_COUNTRY = "Iltimos o'z davlatingizni qisqa kodni jo'nating \n (Misol: Uzbekistan -> Uz)";
+    String ERROR_COUNTRY = "Siz kiritgan malumot bo'yicha hech qanday malumot topilmadi.\nIltimis qaytadan kiriting: ";
+    String SELECT_REGION = "Iltimos o'z viloyatingiz yoki shaxringizni tanlang: ";
 }
