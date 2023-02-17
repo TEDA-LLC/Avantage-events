@@ -58,7 +58,7 @@ public interface ConstantEn {
     String SELECT_REGION = "Please choose your region: ";
 
     String ABOUT_COMPANY = "Write about your company:";
-    String ABOUT_COMPANY_IF_NOT_BUTTON = "I haven't company: ";
+    String ABOUT_COMPANY_IF_NOT_BUTTON = "I haven't company";
     String  HOW_KNOW = "How did you hear about us?";
     String TV_KNOW_BUTTON = "Through Television \uD83D\uDCFA";
     String INTERNET_KNOW_BUTTON = "With Internet \uD83C\uDF10";

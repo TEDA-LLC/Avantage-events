@@ -638,6 +638,7 @@ public class BotService {
         userRepository.save(currentUser);
         Optional<Country> countryOptional = countryRepository.findByShortNameEqualsIgnoreCase(text);
         if (countryOptional.isEmpty()) {
+            currentUser.setState(State.COUNTRY);
             if (currentUser.getLanguage().equals(Language.ENG))
                 sendMessage.setText(ConstantEn.ERROR_COUNTRY);
             else if (currentUser.getLanguage().equals(Language.RUS))
