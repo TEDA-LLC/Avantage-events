@@ -26,12 +26,12 @@ public interface ConstantUz {
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58  +998 (97) 716 63 44</b>
-            \uD83D\uDCE7 <b>info@avantage.events</b>
+            \uD83D\uDCE7 <b>info@cio.uz</b>
             \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo lug`bek shoh ko`chasi 87</b>
             \uD83C\uDF10 <a href="https://cio.uz/">CIO.uz</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>
-            \uD83D\uDC64 <b> Manager :info@cio.uz</b>\s""";
+            \uD83D\uDC64 <b> Manager : info@avantage.events</b>\s""";
 //            \uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulug`bek f-li Toshkent shahar</b>\s
 //            <b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\s""";
 

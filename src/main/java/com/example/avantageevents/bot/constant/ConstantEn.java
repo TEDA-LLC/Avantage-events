@@ -26,12 +26,12 @@ public interface ConstantEn {
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (95) 144 04 40  +998 (97) 716 63 44</b>
-            \uD83D\uDCE7 <b>info@avantage.events</b>
+            \uD83D\uDCE7 <b>info@cio.uz</b>
             \uD83D\uDCCD <b>Tashkent C, Mirzo Ulugbek district, Mirzo Ulugbek street 87</b>
             \uD83C\uDF10 <a href="https://cio.uz/">CIO.uz</a>
             <b>Leave your question to our manager and </b>
             <b> our manager will answer you as soon as possible.</b>
-            \uD83D\uDC64 <b> Manager : info@cio.uz</b>\s""";
+            \uD83D\uDC64 <b> Manager : info@avantage.events</b>\s""";
 //            \uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulugbek branch Tashkent C</b>\s
 //            <b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\s""";
     String VACANCY = "There are currently no vacancies\n" ;
