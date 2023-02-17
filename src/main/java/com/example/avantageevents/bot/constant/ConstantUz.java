@@ -57,4 +57,14 @@ public interface ConstantUz {
     String SELECT_COUNTRY = "Iltimos o'z davlatingizni qisqa kodni jo'nating \n (Misol: Uzbekistan -> Uz)";
     String ERROR_COUNTRY = "Siz kiritgan malumot bo'yicha hech qanday malumot topilmadi.\nIltimis qaytadan kiriting: ";
     String SELECT_REGION = "Iltimos o'z viloyatingiz yoki shaxringizni tanlang: ";
+    String ABOUT_COMPANY = "Kompaniyangiz haqida yozing: ";
+    String ABOUT_COMPANY_IF_NOT_BUTTON = "Mening kompaniyam yo'q";
+    String  HOW_KNOW = "Siz biz haqimizda qayerdan bildingiz? ";
+    String TV_KNOW_BUTTON = "Televediniya orqali \uD83D\uDCFA";
+    String INTERNET_KNOW_BUTTON = "Internet orqali \uD83C\uDF10";
+    String ADVERTISING_KNOW_BUTTON = "Reklamalar orqali \uD83D\uDCE3";
+    String EMAIL_KNOW_BUTTON = "Email oqrali \uD83D\uDCE7";
+    String ANOTHER_KNOW_BUTTON = "Boshqa manbalar orqali";
+
+
 }

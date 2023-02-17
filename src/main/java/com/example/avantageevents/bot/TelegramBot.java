@@ -107,7 +107,14 @@ public class TelegramBot extends TelegramLongPollingBot {
                         } else {
                             currentUser = optionalUser.get();
                             switch (currentUser.getState()) {
-                                case REGION -> {
+                                case COMPANY -> {
+                                    currentUser.setState(State.HOW_KNOW);
+                                    currentUser.setLastOperationTime(LocalDateTime.now());
+                                    currentUser.setCompany(message.getText());
+                                    userRepository.save(currentUser);
+                                    execute(botService.howKnow(currentUser));
+                                }
+                                case COUNTRY -> {
 //                                    currentUser.setState(State.CONTACT);
                                     currentUser.setLastOperationTime(LocalDateTime.now());
                                     userRepository.save(currentUser);
@@ -211,13 +218,15 @@ public class TelegramBot extends TelegramLongPollingBot {
                                     user1.setDepartment(user.getDepartment());
                                     userRepository.save(user1);
                                     userRepository.delete(user);
+                                    execute(botService.country(user1));
                                 } else {
                                     userRepository.save(user);
+                                    execute(botService.country(user));
                                 }
-                                user.setState(State.REGION);
-                                user.setLastOperationTime(LocalDateTime.now());
-                                userRepository.save(user);
-                                execute(botService.country(user));
+//                                user.setState(State.REGION);
+//                                user.setLastOperationTime(LocalDateTime.now());
+//                                userRepository.save(user);
+//                                execute(botService.country(user));
 //                                execute(botService.menu(chatId, user.getLanguage()));
                             }
                             case SETTINGS -> {
@@ -276,7 +285,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             }
                         }
                         case REGION -> {
-                            currentUser.setState(State.CONTACT);
+                            currentUser.setState(State.COMPANY);
                             currentUser.setLastOperationTime(LocalDateTime.now());
                             Long regionId = Long.valueOf(update.getCallbackQuery().getData().substring(7));
                             Address address = new Address();
@@ -286,6 +295,21 @@ public class TelegramBot extends TelegramLongPollingBot {
                             currentUser.setAddress(addressRepository.save(address));
                             currentUser = userRepository.save(currentUser);
                             execute(botService.deleteMessage(chatId, callbackQuery.getMessage().getMessageId()));
+//                            execute(botService.menu(currentUser.getChatId(), currentUser.getLanguage()));
+                            execute(botService.company(currentUser));
+                        }
+                        case COMPANY -> {
+                            currentUser.setState(State.HOW_KNOW);
+                            currentUser.setLastOperationTime(LocalDateTime.now());
+                            currentUser = userRepository.save(currentUser);
+                            execute(botService.howKnow(currentUser));
+//                            execute(botService.menu(currentUser.getChatId(), currentUser.getLanguage()));
+                        }
+                        case HOW_KNOW -> {
+                            currentUser.setState(State.CONTACT);
+                            currentUser.setLastOperationTime(LocalDateTime.now());
+                            currentUser.setKnow(callbackQuery.getData().substring(1));
+                            currentUser = userRepository.save(currentUser);
                             execute(botService.menu(currentUser.getChatId(), currentUser.getLanguage()));
                         }
                     }

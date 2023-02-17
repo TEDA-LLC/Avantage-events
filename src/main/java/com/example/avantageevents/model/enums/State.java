@@ -5,6 +5,6 @@ package com.example.avantageevents.model.enums;
  */
 public enum State {
 
-    START, LANGUAGE, CONTACT, SERVICE, PRODUCT, SETTINGS, COUNTRY, REGION
+    START, LANGUAGE, CONTACT, SERVICE, PRODUCT, SETTINGS, COUNTRY, REGION, COMPANY, HOW_KNOW
 
 }

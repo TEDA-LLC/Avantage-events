@@ -665,11 +665,41 @@ public class BotService {
                 currentUser.setResident(true);
                 userRepository.save(currentUser);
             } else {
-                currentUser.setState(State.CONTACT);
+                currentUser.setState(State.COMPANY);
                 currentUser.setResident(false);
                 currentUser = userRepository.save(currentUser);
-                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
+//                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
+                sendMessage = company(currentUser);
             }
+        }
+        return sendMessage;
+    }
+
+    public SendMessage company(User currentUser) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(currentUser.getChatId());
+        if (currentUser.getLanguage().equals(Language.ENG))
+            sendMessage.setText(ConstantEn.ABOUT_COMPANY);
+        else if (currentUser.getLanguage().equals(Language.RUS))
+            sendMessage.setText(ConstantRu.ABOUT_COMPANY);
+        else
+            sendMessage.setText(ConstantUz.ABOUT_COMPANY);
+        InlineKeyboardMarkup inlineKeyboardMarkup = buttonService.company(currentUser.getLanguage());
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+        return sendMessage;
+
+    }
+
+    public SendMessage howKnow(User currentUser) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(currentUser.getChatId());
+        sendMessage.setReplyMarkup(buttonService.howKnow(currentUser.getLanguage()));
+        if (currentUser.getLanguage().equals(Language.ENG)) {
+            sendMessage.setText(ConstantEn.HOW_KNOW);
+        } else if (currentUser.getLanguage().equals(Language.RUS)) {
+            sendMessage.setText(ConstantRu.HOW_KNOW);
+        } else {
+            sendMessage.setText(ConstantUz.HOW_KNOW);
         }
         return sendMessage;
     }

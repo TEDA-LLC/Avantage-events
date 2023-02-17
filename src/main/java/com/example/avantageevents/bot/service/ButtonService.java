@@ -3,7 +3,10 @@ package com.example.avantageevents.bot.service;
 import com.example.avantageevents.bot.constant.ConstantEn;
 import com.example.avantageevents.bot.constant.ConstantRu;
 import com.example.avantageevents.bot.constant.ConstantUz;
-import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.Category;
+import com.example.avantageevents.model.Country;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.Region;
 import com.example.avantageevents.model.enums.Language;
 import com.example.avantageevents.repository.CategoryRepository;
 import com.example.avantageevents.repository.RegionRepository;
@@ -286,7 +289,7 @@ public class ButtonService {
         return inlineKeyboardMarkup;
     }
 
-    public InlineKeyboardMarkup regions( Country country) {
+    public InlineKeyboardMarkup regions(Country country) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         List<Region> regionList = regionRepository.findAllByCountry_Id(country.getId());
@@ -296,6 +299,64 @@ public class ButtonService {
             button.setCallbackData("$region" + region.getId());
             buttons.add(List.of(button));
         }
+        inlineKeyboardMarkup.setKeyboard(buttons);
+        return inlineKeyboardMarkup;
+    }
+
+    public InlineKeyboardMarkup company(Language language) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        if (language.equals(Language.ENG)) {
+            button.setText(ConstantEn.ABOUT_COMPANY_IF_NOT_BUTTON);
+        } else if (language.equals(Language.RUS)) {
+            button.setText(ConstantRu.ABOUT_COMPANY_IF_NOT_BUTTON);
+        } else {
+            button.setText(ConstantUz.ABOUT_COMPANY_IF_NOT_BUTTON);
+        }
+        button.setCallbackData("$no");
+        buttons.add(List.of(button));
+        inlineKeyboardMarkup.setKeyboard(buttons);
+        return inlineKeyboardMarkup;
+    }
+
+    public InlineKeyboardMarkup howKnow(Language language) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        InlineKeyboardButton button1 = new InlineKeyboardButton();
+        InlineKeyboardButton button2 = new InlineKeyboardButton();
+        InlineKeyboardButton button3 = new InlineKeyboardButton();
+        InlineKeyboardButton button4 = new InlineKeyboardButton();
+        if (language.equals(Language.ENG)) {
+            button.setText(ConstantEn.TV_KNOW_BUTTON);
+            button1.setText(ConstantEn.INTERNET_KNOW_BUTTON);
+            button2.setText(ConstantEn.ADVERTISING_KNOW_BUTTON);
+            button3.setText(ConstantEn.EMAIL_KNOW_BUTTON);
+            button4.setText(ConstantEn.ANOTHER_KNOW_BUTTON);
+        } else if (language.equals(Language.RUS)) {
+            button.setText(ConstantRu.TV_KNOW_BUTTON);
+            button1.setText(ConstantRu.INTERNET_KNOW_BUTTON);
+            button2.setText(ConstantRu.ADVERTISING_KNOW_BUTTON);
+            button3.setText(ConstantRu.EMAIL_KNOW_BUTTON);
+            button4.setText(ConstantRu.ANOTHER_KNOW_BUTTON);
+        } else {
+            button.setText(ConstantUz.TV_KNOW_BUTTON);
+            button1.setText(ConstantUz.INTERNET_KNOW_BUTTON);
+            button2.setText(ConstantUz.ADVERTISING_KNOW_BUTTON);
+            button3.setText(ConstantUz.EMAIL_KNOW_BUTTON);
+            button4.setText(ConstantUz.ANOTHER_KNOW_BUTTON);
+        }
+        button.setCallbackData("$" + ConstantEn.TV_KNOW_BUTTON);
+        buttons.add(List.of(button));
+        button1.setCallbackData("$" + ConstantEn.INTERNET_KNOW_BUTTON);
+        buttons.add(List.of(button1));
+        button2.setCallbackData("$" + ConstantEn.ADVERTISING_KNOW_BUTTON);
+        buttons.add(List.of(button2));
+        button3.setCallbackData("$" + ConstantEn.EMAIL_KNOW_BUTTON);
+        buttons.add(List.of(button3));
+        button4.setCallbackData("$" + ConstantEn.ANOTHER_KNOW_BUTTON);
+        buttons.add(List.of(button4));
         inlineKeyboardMarkup.setKeyboard(buttons);
         return inlineKeyboardMarkup;
     }

@@ -56,4 +56,12 @@ public interface ConstantRu {
     String ERROR_COUNTRY = "По введенной вами информации не найдено информации.\n" +
             "Пожалуйста, введите еще раз:";
     String SELECT_REGION = "Пожалуйста, выберите свой регион: ";
+    String ABOUT_COMPANY = "Напишите о своей компании: ";
+    String ABOUT_COMPANY_IF_NOT_BUTTON = "У меня нет компании ";
+    String  HOW_KNOW = "Как вы узнали о нас?";
+    String TV_KNOW_BUTTON = "Через Телевидение \uD83D\uDCFA";
+    String INTERNET_KNOW_BUTTON = "Через Интернет \uD83C\uDF10";
+    String ADVERTISING_KNOW_BUTTON = "Через Рекламу \uD83D\uDCE3";
+    String EMAIL_KNOW_BUTTON = "По Электронной Почте \uD83D\uDCE7";
+    String ANOTHER_KNOW_BUTTON = "Через Другие Источники ";
 }
