@@ -31,7 +31,7 @@ public interface ConstantUz {
             \uD83C\uDF10 <a href="https://cio.uz/">CIO.uz</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>
-            \uD83D\uDC64 <b> Manager :info@avantage.events</b>\s""";
+            \uD83D\uDC64 <b> Manager :info@cio.uz</b>\s""";
 //            \uD83C\uDFE6<b>Х/р: 20208000800895476001, РАКБ «Davr Bank» Mirzo Ulug`bek f-li Toshkent shahar</b>\s
 //            <b>МФО: 01072 ИНН: 305626506  ОКЭД: 82990</b>\s""";
 
