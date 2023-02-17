@@ -666,7 +666,7 @@ public class BotService {
                 currentUser.setResident(true);
                 userRepository.save(currentUser);
             } else {
-                currentUser.setState(State.COMPANY);
+                currentUser.setState(State.REGION);
                 currentUser.setResident(false);
                 currentUser = userRepository.save(currentUser);
 //                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
