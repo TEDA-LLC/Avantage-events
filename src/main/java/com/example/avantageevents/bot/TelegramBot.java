@@ -17,6 +17,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -118,8 +119,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 //                                    currentUser.setState(State.CONTACT);
                                     currentUser.setLastOperationTime(LocalDateTime.now());
                                     userRepository.save(currentUser);
-                                    execute(botService.deleteMessage(chatId, update.getMessage().getMessageId()-1));
-                                    execute(botService.region(currentUser, update.getMessage()));
+                                    execute(botService.deleteMessage(chatId, update.getMessage().getMessageId() - 1));
+                                    SendMessage sendMessage = botService.region(currentUser, update.getMessage());
+                                    if (currentUser.getAddress() != null) {
+                                        execute(SendMessage.builder().chatId(currentUser.getChatId()).text(currentUser.getAddress().getCountry().getName()).build());
+                                    }
+                                    execute(sendMessage);
                                 }
                                 case CONTACT -> {
                                     if (message.getText().equals(ConstantUz.ABOUT_US_BUTTON) || message.getText().equals(ConstantRu.ABOUT_US_BUTTON) || message.getText().equals(ConstantEn.ABOUT_US_BUTTON)) {

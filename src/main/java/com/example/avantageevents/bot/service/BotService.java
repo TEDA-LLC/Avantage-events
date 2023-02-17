@@ -1,5 +1,6 @@
 package com.example.avantageevents.bot.service;
 
+import com.example.avantageevents.bot.TelegramBot;
 import com.example.avantageevents.bot.constant.ConstantEn;
 import com.example.avantageevents.bot.constant.ConstantRu;
 import com.example.avantageevents.bot.constant.ConstantUz;
@@ -630,12 +631,13 @@ public class BotService {
         return sendMessage;
     }
 
+    @SneakyThrows
     public SendMessage region(User currentUser, Message message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(currentUser.getChatId());
         String text = message.getText();
-        currentUser.setState(State.COUNTRY);
-        userRepository.save(currentUser);
+//        currentUser.setState(State.COUNTRY);
+//        userRepository.save(currentUser);
         Optional<Country> countryOptional = countryRepository.findByShortNameEqualsIgnoreCase(text);
         if (countryOptional.isEmpty()) {
             currentUser.setState(State.COUNTRY);
@@ -666,13 +668,15 @@ public class BotService {
                 currentUser.setResident(true);
                 userRepository.save(currentUser);
             } else {
-                currentUser.setState(State.REGION);
+//                currentUser.setState(State.REGION);
                 currentUser.setResident(false);
                 currentUser = userRepository.save(currentUser);
 //                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
                 sendMessage = company(currentUser);
             }
+            currentUser.setState(State.REGION);
         }
+        userRepository.save(currentUser);
         return sendMessage;
     }
 
