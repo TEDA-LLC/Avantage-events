@@ -66,17 +66,16 @@ public class SiteService {
         request.setProduct(product);
         if (dto.getCategory() != null) {
             request.setCategory(dto.getCategory());
-        }
-        else {
+        } else {
             request.setCategory(product.getNameEn());
         }
         ApiResponse<User> response = login(dto.getEmail(), dto.getPhone());
-        if (!response.isSuccess()){
+        if (!response.isSuccess()) {
             return response;
         }
         User user = response.getData();
         List<Request> requestList = requestRepository.findAllByProductAndUser(product, user);
-        if (!requestList.isEmpty()){
+        if (!requestList.isEmpty()) {
             return ApiResponse.builder().
                     message("Request was added !").
                     status(200).
@@ -602,16 +601,12 @@ public class SiteService {
 
     @SneakyThrows
     public ResponseEntity<?> getQrCode(Long requestId, HttpServletResponse response) {
-        Optional<Request> requestOptional = requestRepository.findById(requestId);
-        if (requestOptional.isEmpty() || !requestOptional.get().getProduct().getCategory().getDepartment().getId().equals(departmentId)) {
+        Optional<User> userOptional = userRepository.findById(requestId);
+        if (userOptional.isEmpty() || !userOptional.get().getDepartment().getId().equals(departmentId)) {
             return ResponseEntity.badRequest().body("Request not found!!!");
         }
-        Request request = requestOptional.get();
-        if (request.getUser() == null) {
-            return ResponseEntity.badRequest().body("User not found!!!");
-        }
         response.setContentType("image/png");
-        byte[] qrCodeBytes = qrCodeService.generateQRCode(request.getUser().getQrcode().toString(), 500, 500);
+        byte[] qrCodeBytes = qrCodeService.generateQRCode(userOptional.get().getQrcode().toString(), 500, 500);
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(qrCodeBytes);
         return ResponseEntity.ok()
