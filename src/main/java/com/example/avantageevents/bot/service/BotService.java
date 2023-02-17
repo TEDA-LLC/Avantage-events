@@ -634,7 +634,7 @@ public class BotService {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(currentUser.getChatId());
         String text = message.getText();
-        currentUser.setState(State.REGION);
+        currentUser.setState(State.COUNTRY);
         userRepository.save(currentUser);
         Optional<Country> countryOptional = countryRepository.findByShortNameEqualsIgnoreCase(text);
         if (countryOptional.isEmpty()) {
