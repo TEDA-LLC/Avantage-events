@@ -123,8 +123,8 @@ public class SiteController {
     }
 
     @GetMapping("/getQrCode")
-    public ResponseEntity<?> getQrCode(@RequestParam Long requestId, HttpServletResponse response){
-        return siteService.getQrCode(requestId, response);
+    public ResponseEntity<?> getQrCode(@RequestParam Long userId, HttpServletResponse response){
+        return siteService.getQrCode(userId, response);
     }
     @GetMapping("/product")
     public ResponseEntity<?> getAll() {

@@ -600,8 +600,8 @@ public class SiteService {
     }
 
     @SneakyThrows
-    public ResponseEntity<?> getQrCode(Long requestId, HttpServletResponse response) {
-        Optional<User> userOptional = userRepository.findById(requestId);
+    public ResponseEntity<?> getQrCode(Long userid, HttpServletResponse response) {
+        Optional<User> userOptional = userRepository.findById(userid);
         if (userOptional.isEmpty() || !userOptional.get().getDepartment().getId().equals(departmentId)) {
             return ResponseEntity.badRequest().body("Request not found!!!");
         }
