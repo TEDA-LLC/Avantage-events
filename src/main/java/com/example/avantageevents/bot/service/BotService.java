@@ -657,6 +657,7 @@ public class BotService {
             currentUser.setAddress(addressRepository.save(address));
 
             if (country.getShortName().equalsIgnoreCase("uz")) {
+                currentUser.setState(State.REGION);
                 InlineKeyboardMarkup inlineKeyboardMarkup = buttonService.regions(country);
                 if (currentUser.getLanguage().equals(Language.ENG)) {
                     sendMessage.setText(ConstantEn.SELECT_REGION);
@@ -669,13 +670,12 @@ public class BotService {
                 currentUser.setResident(true);
                 userRepository.save(currentUser);
             } else {
-//                currentUser.setState(State.REGION);
+                currentUser.setState(State.COMPANY);
                 currentUser.setResident(false);
                 currentUser = userRepository.save(currentUser);
 //                sendMessage = menu(currentUser.getChatId(), currentUser.getLanguage());
                 sendMessage = company(currentUser);
             }
-            currentUser.setState(State.REGION);
         }
         userRepository.save(currentUser);
         return sendMessage;
