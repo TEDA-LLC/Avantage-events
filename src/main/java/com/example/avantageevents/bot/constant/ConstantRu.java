@@ -51,7 +51,7 @@ public interface ConstantRu {
     String MY_REQUESTS = "Мои Выставки \uD83C\uDFAF";
 
     String MY_REQUESTS_EMPTY = "У вас пока нет заявки";
-    String SELECT_COUNTRY = "Пожалуйста, пришлите мне код вашего округа \n (Пример: Uzbekistan -> Uz)";
+    String SELECT_COUNTRY = "Пожалуйста, пришлите мне код вашего страны \n (Пример: Uzbekistan -> Uz)";
     String ERROR_COUNTRY = "По введенной вами информации не найдено информации.\n" +
             "Пожалуйста, введите еще раз:";
     String SELECT_REGION = "Пожалуйста, выберите свой регион: ";
@@ -63,4 +63,5 @@ public interface ConstantRu {
     String ADVERTISING_KNOW_BUTTON = "Через Рекламу \uD83D\uDCE3";
     String EMAIL_KNOW_BUTTON = "По Электронной Почте \uD83D\uDCE7";
     String ANOTHER_KNOW_BUTTON = "Через Другие Источники ";
+    String QR_CODE_BUTTON = "Мой QR-код";
 }

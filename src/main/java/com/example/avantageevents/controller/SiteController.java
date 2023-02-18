@@ -3,6 +3,7 @@ package com.example.avantageevents.controller;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.RequestDTO;
 import com.example.avantageevents.dto.ReviewDTO;
+import com.example.avantageevents.dto.UserDTO;
 import com.example.avantageevents.model.Country;
 import com.example.avantageevents.model.District;
 import com.example.avantageevents.model.Product;
@@ -58,8 +59,8 @@ public class SiteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam(required = false) String email, @RequestParam(required = false) String phone){
-        ApiResponse<User> response = siteService.login(email, phone);
+    public ResponseEntity<?> login(@RequestBody UserDTO dto){
+        ApiResponse<User> response = siteService.login(dto);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 

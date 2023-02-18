@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendLocation;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -707,5 +708,20 @@ public class BotService {
             sendMessage.setText(ConstantUz.HOW_KNOW);
         }
         return sendMessage;
+    }
+
+    @SneakyThrows
+    public SendPhoto qrCode(String chatId, User currentUser) {
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatId);
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(currentUser.getQrcode().toString(), BarcodeFormat.QR_CODE, 500, 500);
+
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+        byte[] pngData = pngOutputStream.toByteArray();
+        InputFile inputFile = new InputFile(new ByteArrayInputStream(pngData), "QrCode.png");
+        sendPhoto.setPhoto(inputFile);
+        return sendPhoto;
     }
 }

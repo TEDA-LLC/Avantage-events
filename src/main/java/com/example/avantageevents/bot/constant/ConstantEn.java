@@ -64,4 +64,6 @@ public interface ConstantEn {
     String ADVERTISING_KNOW_BUTTON = "Through Advertisements \uD83D\uDCE3";
     String EMAIL_KNOW_BUTTON = "By E-mail \uD83D\uDCE7";
     String ANOTHER_KNOW_BUTTON = "Through Other Sources";
+
+    String QR_CODE_BUTTON = "My QrCode";
 }

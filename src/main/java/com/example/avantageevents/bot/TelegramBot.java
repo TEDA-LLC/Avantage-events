@@ -131,10 +131,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                                         currentUser.setLastOperationTime(LocalDateTime.now());
                                         userRepository.save(currentUser);
                                         execute(botService.aboutUs(chatId, currentUser.getLanguage()));
-                                    } else if (message.getText().equals(ConstantUz.VACANCY_BUTTON) || message.getText().equals(ConstantRu.VACANCY_BUTTON) || message.getText().equals(ConstantEn.VACANCY_BUTTON)) {
+                                    } else if (message.getText().equals(ConstantUz.QR_CODE_BUTTON) || message.getText().equals(ConstantRu.QR_CODE_BUTTON) || message.getText().equals(ConstantEn.QR_CODE_BUTTON)) {
                                         currentUser.setLastOperationTime(LocalDateTime.now());
                                         userRepository.save(currentUser);
-                                        execute(botService.vacancies(chatId, currentUser));
+                                        execute(botService.qrCode(chatId, currentUser));
                                         execute(botService.menu(chatId, currentUser.getLanguage()));
                                     } else if (message.getText().equals(ConstantUz.MY_REQUESTS) || message.getText().equals(ConstantRu.MY_REQUESTS) || message.getText().equals(ConstantEn.MY_REQUESTS)) {
                                         currentUser.setLastOperationTime(LocalDateTime.now());

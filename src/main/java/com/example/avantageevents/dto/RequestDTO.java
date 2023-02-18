@@ -16,7 +16,7 @@ import lombok.ToString;
 public class RequestDTO {
 
     private Long productId;
-    private String name, email, phone;
+    private UserDTO user;
     private String aboutProduct, category;
 
 }

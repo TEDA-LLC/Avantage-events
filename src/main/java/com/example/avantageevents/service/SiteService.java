@@ -4,6 +4,7 @@ import com.example.avantageevents.bot.TelegramBot;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.RequestDTO;
 import com.example.avantageevents.dto.ReviewDTO;
+import com.example.avantageevents.dto.UserDTO;
 import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.repository.*;
@@ -47,6 +48,8 @@ public class SiteService {
     private final QRCodeService qrCodeService;
     private final BotRepository botRepository;
     private final DepartmentRepository departmentRepository;
+    private final CountryRepository countryRepository;
+    private final RegionRepository regionRepository;
 
     public ApiResponse<?> add(RequestDTO dto) {
         Request request = new Request();
@@ -69,7 +72,7 @@ public class SiteService {
         } else {
             request.setCategory(product.getNameEn());
         }
-        ApiResponse<User> response = login(dto.getEmail(), dto.getPhone());
+        ApiResponse<User> response = checkUser(dto.getUser());
         if (!response.isSuccess()) {
             return response;
         }
@@ -166,6 +169,110 @@ public class SiteService {
                 success(true).
                 data(save).
                 build();
+    }
+
+    private ApiResponse<User> checkUser(UserDTO dto) {
+        String email = dto.getEmail();
+        String phone = dto.getPhone();
+        boolean isEmail = email != null;
+        boolean isPhone = phone != null;
+        if (isEmail) {
+            isEmail = !email.equals("");
+        }
+        if (isPhone) {
+            isPhone = !phone.equals("");
+        }
+        if (isEmail && isPhone) {
+            Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndDepartment_Id(email, departmentId);
+            Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
+            if (userOptionalByPhone1.isPresent() && userOptionalByEmail1.isPresent()) {
+                User userByEmail = userOptionalByEmail1.get();
+                User userByPhone = userOptionalByPhone1.get();
+                if (!userByPhone.getId().equals(userByEmail.getId())) {
+                    userByPhone.setEmail(userByEmail.getEmail());
+                    User save = userRepository.save(userByPhone);
+                    userRepository.delete(userByEmail);
+                    return ApiResponse.<User>builder().
+                            message("User here!").
+                            status(200).
+                            success(true).
+                            data(userByPhone).
+                            build();
+                }
+            }
+
+        }
+        if (isEmail) {
+            Optional<User> userOptionalByEmail = userRepository.findByEmailAndDepartment_Id(email, departmentId);
+            if (userOptionalByEmail.isPresent()) {
+                User userByEmail = userOptionalByEmail.get();
+                if (userByEmail.getPhone() == null) {
+                    userByEmail.setPhone(phone);
+                }
+                userByEmail.setCount(userByEmail.getCount() + 1);
+                userRepository.save(userByEmail);
+                return ApiResponse.<User>builder().
+                        message("User here !").
+                        status(200).
+                        success(true).
+                        data(userByEmail).
+                        build();
+            }
+        }
+        if (isPhone) {
+            Optional<User> userOptionalByPhone = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
+            if (userOptionalByPhone.isPresent()) {
+                User userByPhone = userOptionalByPhone.get();
+                if (userByPhone.getEmail() == null) {
+                    userByPhone.setEmail(email);
+                }
+                userByPhone.setCount(userByPhone.getCount() + 1);
+                User save = userRepository.save(userByPhone);
+                return ApiResponse.<User>builder().
+                        message("User here !").
+                        status(200).
+                        success(true).
+                        data(userByPhone).
+                        build();
+            }
+        }
+
+        if (!isEmail && !isPhone)
+            return ApiResponse.<User>builder().
+                    message("Parameters are required!!!").
+                    success(false).
+                    status(400).
+                    build();
+        if (isEmail && !email.contains("@"))
+            return ApiResponse.<User>builder().
+                    message("Email type is not supported!!!").
+                    success(false).
+                    status(400).
+                    build();
+        if (isPhone) {
+            try {
+                Long.parseLong(phone.substring(1));
+            } catch (NumberFormatException e) {
+                return ApiResponse.<User>builder().
+                        message("Phone is not numeric!!!").
+                        success(false).
+                        status(400).
+                        build();
+            }
+        }
+
+        if (isPhone && !phone.startsWith("+"))
+            return ApiResponse.<User>builder().
+                    message("Phone is not numeric!!!").
+                    success(false).
+                    status(400).
+                    build();
+        return ApiResponse.<User>builder().
+                message("User not found!!!").
+                success(false).
+                status(400).
+                build();
+
     }
 
     public ApiResponse<?> historyWriter(SiteHistory history, String phone, String email) {
@@ -481,7 +588,9 @@ public class SiteService {
                 build();
     }
 
-    public ApiResponse<User> login(String email, String phone) {
+    public ApiResponse<User> login(UserDTO dto) {
+        String email = dto.getEmail();
+        String phone = dto.getPhone();
         boolean isEmail = email != null;
         boolean isPhone = phone != null;
         if (isEmail) {
@@ -584,6 +693,31 @@ public class SiteService {
         if (isPhone) {
             user.setPhone(phone);
         }
+        user.setFullName(dto.getFullName());
+        user.setKnow(dto.getHowKnow());
+        user.setCompany(dto.getCompany());
+        Address address = new Address();
+        Optional<Country> countryOptional = countryRepository.findById(dto.getCountryId());
+        if (countryOptional.isEmpty()){
+            return ApiResponse.<User>builder().
+                    message("Country not found!!!").
+                    success(false).
+                    status(400).
+                    build();
+        }
+        address.setCountry(countryOptional.get());
+        if (dto.getRegionId() != null){
+            Optional<Region> regionOptional = regionRepository.findById(dto.getRegionId());
+            if (regionOptional.isEmpty() || ! regionOptional.get().getCountry().getId().equals(countryOptional.get().getId())) {
+                return ApiResponse.<User>builder().
+                        message("Region not found!!!").
+                        success(false).
+                        status(400).
+                        build();
+            }
+            address.setRegion(regionOptional.get());
+        }
+        user.setAddress(address);
         user.setCount(1);
         user.setRegisteredType(RegisteredType.WEBSITE);
 //        user.setBot(botRepository.findById(botId).get());

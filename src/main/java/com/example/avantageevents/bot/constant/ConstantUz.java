@@ -64,6 +64,6 @@ public interface ConstantUz {
     String ADVERTISING_KNOW_BUTTON = "Reklamalar orqali \uD83D\uDCE3";
     String EMAIL_KNOW_BUTTON = "Email oqrali \uD83D\uDCE7";
     String ANOTHER_KNOW_BUTTON = "Boshqa manbalar orqali";
-
+    String QR_CODE_BUTTON = "Mening Qr kodim";
 
 }
