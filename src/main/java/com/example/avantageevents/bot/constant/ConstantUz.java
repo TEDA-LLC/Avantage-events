@@ -26,7 +26,7 @@ public interface ConstantUz {
             \s
             \uD83C\uDF10 <a href="https://cio.teda.uz/"> cio.teda.uz</a>
             ☎ <b>+998 (93) 159 25 58  +998 (97) 716 63 44</b>
-            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo lug`bek shoh ko`chasi 87</b>
+            \uD83D\uDCCD <b>Toshkent shahar, Mirzo Ulug`bek tuman, Mirzo Ulug`bek shoh ko`chasi 87</b>
             \uD83C\uDF10 <a href="https://cio.uz/">CIO.uz</a>
             <b>Menejirimizga savolingizni qoldiring va </b>
             <b> menejerimiz sizga imkon qadar tezroq javob beradi.</b>
