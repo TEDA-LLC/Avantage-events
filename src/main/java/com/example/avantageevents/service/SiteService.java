@@ -714,6 +714,7 @@ public class SiteService {
         user.setFullName(dto.getFullName());
         user.setKnow(dto.getHowKnow());
         user.setCompany(dto.getCompany());
+        user.setWorkType(dto.getWorkType());
         Address address = new Address();
         Optional<Country> countryOptional = countryRepository.findById(dto.getCountryId());
         if (countryOptional.isEmpty()){

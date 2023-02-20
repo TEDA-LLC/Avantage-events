@@ -90,6 +90,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private boolean resident = true;
-    private String know, company;
+    private String know, company, workType;
 
 }
