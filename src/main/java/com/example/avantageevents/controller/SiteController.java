@@ -63,6 +63,11 @@ public class SiteController {
         ApiResponse<User> response = siteService.login(dto);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
+    @PostMapping("/check")
+    public ResponseEntity<?> checkUser(UserDTO dto){
+        ApiResponse<User> response = siteService.checkUser(dto);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 
     @GetMapping("/history")
     public ResponseEntity<?> getHistory() {
