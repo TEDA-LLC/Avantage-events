@@ -1,7 +1,7 @@
 name: Build and host
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths-ignore:
       - 'src/main/frontend/**'
 jobs:
