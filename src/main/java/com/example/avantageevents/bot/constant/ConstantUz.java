@@ -17,7 +17,7 @@ public interface ConstantUz {
             <RAQAMNI JO'NATISH> tugmasi yordamida raqamni yuboring""";
     String ABOUT_US_BUTTON = "Biz haqimizda \uD83D\uDD0E";
     String SERVICES_BUTTON = "Xizmatlar \uD83D\uDEE0";
-    String EVENTS_BUTTON = "Tadbirlarrrrr \uD83D\uDCBB";
+    String EVENTS_BUTTON = "Tadbirlar \uD83D\uDCBB";
     String SETTINGS_BUTTON = "Sozlamalar ⚙";
     String VACANCY_BUTTON = "Vakansiya \uD83D\uDC68\uD83C\uDFFB\u200D\uD83D\uDCBB";
     String MENU = "Asosiy menyu : ";
