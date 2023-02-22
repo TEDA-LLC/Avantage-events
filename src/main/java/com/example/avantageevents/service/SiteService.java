@@ -5,27 +5,9 @@ import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.RequestDTO;
 import com.example.avantageevents.dto.ReviewDTO;
 import com.example.avantageevents.dto.UserDTO;
-import com.example.avantageevents.model.Address;
-import com.example.avantageevents.model.Attachment;
-import com.example.avantageevents.model.Bot;
-import com.example.avantageevents.model.Country;
-import com.example.avantageevents.model.Department;
-import com.example.avantageevents.model.Product;
-import com.example.avantageevents.model.Region;
-import com.example.avantageevents.model.Request;
-import com.example.avantageevents.model.Review;
-import com.example.avantageevents.model.SiteHistory;
-import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.RegisteredType;
-import com.example.avantageevents.repository.BotRepository;
-import com.example.avantageevents.repository.CountryRepository;
-import com.example.avantageevents.repository.DepartmentRepository;
-import com.example.avantageevents.repository.ProductRepository;
-import com.example.avantageevents.repository.RegionRepository;
-import com.example.avantageevents.repository.RequestRepository;
-import com.example.avantageevents.repository.ReviewRepository;
-import com.example.avantageevents.repository.SiteHistoryRepository;
-import com.example.avantageevents.repository.UserRepository;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
@@ -715,7 +697,7 @@ public class SiteService {
         user.setWorkType(dto.getWorkType());
         Address address = new Address();
         Optional<Country> countryOptional = countryRepository.findById(dto.getCountryId());
-        if (countryOptional.isEmpty()){
+        if (countryOptional.isEmpty()) {
             return ApiResponse.<User>builder().
                     message("Country not found!!!").
                     success(false).
@@ -723,9 +705,9 @@ public class SiteService {
                     build();
         }
         address.setCountry(countryOptional.get());
-        if (dto.getRegionId() != null){
+        if (dto.getRegionId() != null) {
             Optional<Region> regionOptional = regionRepository.findById(dto.getRegionId());
-            if (regionOptional.isEmpty() || ! regionOptional.get().getCountry().getId().equals(countryOptional.get().getId())) {
+            if (regionOptional.isEmpty() || !regionOptional.get().getCountry().getId().equals(countryOptional.get().getId())) {
                 return ApiResponse.<User>builder().
                         message("Region not found!!!").
                         success(false).
