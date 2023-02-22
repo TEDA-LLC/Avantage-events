@@ -64,8 +64,8 @@ public class SiteController {
         return ResponseEntity.status(response.getStatus()).body(response);
     }
     @PostMapping("/check")
-    public ResponseEntity<?> checkUser(UserDTO dto){
-        ApiResponse<User> response = siteService.checkUser(dto);
+    public ResponseEntity<?> checkUser(@RequestParam(required = false) String email, @RequestParam(required = false) String phone){
+        ApiResponse<User> response = siteService.checkUser(email, phone);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 

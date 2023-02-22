@@ -90,7 +90,7 @@ public class SiteService {
         } else {
             request.setCategory(product.getNameEn());
         }
-        ApiResponse<User> response = checkUser(dto.getUser());
+        ApiResponse<User> response = checkUser(dto.getUser().getEmail(), dto.getUser().getPhone());
         if (!response.isSuccess()) {
             return response;
         }
@@ -189,9 +189,7 @@ public class SiteService {
                 build();
     }
 
-    public ApiResponse<User> checkUser(UserDTO dto) {
-        String email = dto.getEmail();
-        String phone = dto.getPhone();
+    public ApiResponse<User> checkUser(String email, String phone) {
         boolean isEmail = email != null;
         boolean isPhone = phone != null;
         if (isEmail) {
@@ -214,7 +212,7 @@ public class SiteService {
                             message("User here!").
                             status(200).
                             success(true).
-                            data(userByPhone).
+                            data(save).
                             build();
                 }
             }
@@ -228,12 +226,12 @@ public class SiteService {
                     userByEmail.setPhone(phone);
                 }
                 userByEmail.setCount(userByEmail.getCount() + 1);
-                userRepository.save(userByEmail);
+                User save = userRepository.save(userByEmail);
                 return ApiResponse.<User>builder().
                         message("User here !").
                         status(200).
                         success(true).
-                        data(userByEmail).
+                        data(save).
                         build();
             }
         }
@@ -250,17 +248,17 @@ public class SiteService {
                         message("User here !").
                         status(200).
                         success(true).
-                        data(userByPhone).
+                        data(save).
                         build();
             }
         }
 
-        if (!isEmail && !isPhone)
-            return ApiResponse.<User>builder().
-                    message("Parameters are required!!!").
-                    success(false).
-                    status(400).
-                    build();
+//        if (!isEmail && !isPhone)
+//            return ApiResponse.<User>builder().
+//                    message("Parameters are required!!!").
+//                    success(false).
+//                    status(400).
+//                    build();
         if (isEmail && !email.contains("@"))
             return ApiResponse.<User>builder().
                     message("Email type is not supported!!!").
@@ -672,12 +670,12 @@ public class SiteService {
             }
         }
 
-        if (!isEmail && !isPhone)
-            return ApiResponse.<User>builder().
-                    message("Parameters are required!!!").
-                    success(false).
-                    status(400).
-                    build();
+//        if (!isEmail && !isPhone)
+//            return ApiResponse.<User>builder().
+//                    message("Parameters are required!!!").
+//                    success(false).
+//                    status(400).
+//                    build();
         if (isEmail && !email.contains("@"))
             return ApiResponse.<User>builder().
                     message("Email type is not supported!!!").
