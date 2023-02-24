@@ -41,7 +41,6 @@ public class Product {
 
     private String executionInterval;
     @Builder.Default
-    @Column(nullable = true)
     private boolean active = true;
     @OneToMany
     @ToString.Exclude
