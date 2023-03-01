@@ -26,7 +26,6 @@ public class UserService {
     private final RegionRepository regionRepository;
     private final DepartmentRepository departmentRepository;
     private final UserRepository userRepository;
-    private final SiteService siteService;
     private final ProductRepository productRepository;
 
     public ApiResponse<Page<User>> getAll(int page) {
@@ -62,13 +61,17 @@ public class UserService {
         String phone = dto.getPhone();
         boolean isEmail = email != null;
         boolean isPhone = phone != null;
-        Optional<Product> productOptional = productRepository.findById(eventId);
-        if (productOptional.isEmpty() || !productOptional.get().getCategory().getDepartment().getId().equals(departmentId)) {
-            return ApiResponse.<User>builder().
-                    message("Event not found").
-                    success(false).
-                    status(400).
-                    build();
+        Request request = new Request();
+        if (eventId != null) {
+            Optional<Product> productOptional = productRepository.findById(eventId);
+            if (productOptional.isEmpty() || !productOptional.get().getCategory().getDepartment().getId().equals(departmentId)) {
+                return ApiResponse.<User>builder().
+                        message("Event not found").
+                        success(false).
+                        status(400).
+                        build();
+            }
+            request.setProduct(productOptional.get());
         }
         if (isEmail) {
             isEmail = !email.equals("");
@@ -76,8 +79,6 @@ public class UserService {
         if (isPhone) {
             isPhone = !phone.equals("");
         }
-        Request request = new Request();
-        request.setProduct(productOptional.get());
         if (isEmail && isPhone) {
             Optional<User> userOptionalByEmail1 = userRepository.findByEmailAndDepartment_Id(email, departmentId);
             Optional<User> userOptionalByPhone1 = userRepository.findByPhoneAndDepartment_Id(phone, departmentId);
