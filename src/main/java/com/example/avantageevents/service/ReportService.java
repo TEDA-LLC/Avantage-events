@@ -1,8 +1,16 @@
 package com.example.avantageevents.service;
 
 import com.example.avantageevents.dto.ApiResponse;
-import com.example.avantageevents.model.*;
-import com.example.avantageevents.repository.*;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.Request;
+import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.UserHistory;
+import com.example.avantageevents.model.WordHistory;
+import com.example.avantageevents.repository.ProductRepository;
+import com.example.avantageevents.repository.RequestRepository;
+import com.example.avantageevents.repository.UserHistoryRepository;
+import com.example.avantageevents.repository.UserRepository;
+import com.example.avantageevents.repository.WordHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

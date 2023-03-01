@@ -40,4 +40,10 @@ public class UserController {
         ApiResponse<User> response = userService.edit(id, dto);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
+
+    @GetMapping("/getUserByQR")
+    public ResponseEntity<?> getUserByQrCode(@RequestParam String code){
+        ApiResponse<User> response = userService.getByQrCode(code);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }

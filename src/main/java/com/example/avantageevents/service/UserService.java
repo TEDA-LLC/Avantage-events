@@ -2,9 +2,19 @@ package com.example.avantageevents.service;
 
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.UserDTO;
-import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.Address;
+import com.example.avantageevents.model.Country;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.Region;
+import com.example.avantageevents.model.Request;
+import com.example.avantageevents.model.User;
 import com.example.avantageevents.model.enums.RegisteredType;
-import com.example.avantageevents.repository.*;
+import com.example.avantageevents.repository.CountryRepository;
+import com.example.avantageevents.repository.DepartmentRepository;
+import com.example.avantageevents.repository.ProductRepository;
+import com.example.avantageevents.repository.RegionRepository;
+import com.example.avantageevents.repository.RequestRepository;
+import com.example.avantageevents.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -12,6 +22,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -281,6 +292,23 @@ public class UserService {
                 success(true).
                 status(201).
                 data(save).
+                build();
+    }
+
+    public ApiResponse<User> getByQrCode(String code) {
+        Optional<User> userOptional = userRepository.findByDepartment_IdAndQrcode(departmentId, UUID.fromString(code));
+        if (userOptional.isEmpty()){
+            return ApiResponse.<User>builder().
+                    message("User not found!!!").
+                    status(400).
+                    success(false).
+                    build();
+        }
+        return ApiResponse.<User>builder().
+                message("User here!!!").
+                status(200).
+                success(true).
+                data(userOptional.get()).
                 build();
     }
 }

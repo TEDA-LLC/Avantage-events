@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Malikov Azizjon  *  04.02.2023  *  21:45   *  AvantageEvents
@@ -16,6 +17,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByUsername(String username);
+    Optional<User> findByDepartment_IdAndQrcode(Long departmentId, UUID qrcode);
     //    Optional<User> findByPhoneAndDepartment_Id(String phone, Long departmentId);
     Page<User> findAllByDepartment_Id(Long departmentId, Pageable pageable);
     Optional<User> findByPhoneAndDepartment_Id(String phone, Long departmentId);
