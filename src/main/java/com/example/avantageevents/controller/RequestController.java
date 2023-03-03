@@ -7,10 +7,7 @@ import com.example.avantageevents.service.RequestService;
 import com.example.avantageevents.service.UserExcelExporter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -44,5 +41,11 @@ public class RequestController {
     public ResponseEntity exportToExcel1(@PathVariable Long id, HttpServletResponse response) throws IOException {
         ApiResponse<?> productUsers = requestService.getProductUsers(id);
         return ResponseEntity.status(productUsers.getStatus()).body(productUsers);
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> edit(@RequestParam Long eventId, @RequestParam String qrcode){
+        ApiResponse<?> response = requestService.edit(eventId, qrcode);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
