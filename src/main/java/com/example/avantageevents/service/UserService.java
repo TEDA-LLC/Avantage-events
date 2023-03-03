@@ -2,19 +2,9 @@ package com.example.avantageevents.service;
 
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.UserDTO;
-import com.example.avantageevents.model.Address;
-import com.example.avantageevents.model.Country;
-import com.example.avantageevents.model.Product;
-import com.example.avantageevents.model.Region;
-import com.example.avantageevents.model.Request;
-import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.*;
 import com.example.avantageevents.model.enums.RegisteredType;
-import com.example.avantageevents.repository.CountryRepository;
-import com.example.avantageevents.repository.DepartmentRepository;
-import com.example.avantageevents.repository.ProductRepository;
-import com.example.avantageevents.repository.RegionRepository;
-import com.example.avantageevents.repository.RequestRepository;
-import com.example.avantageevents.repository.UserRepository;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -188,10 +178,14 @@ public class UserService {
         if (isPhone) {
             user.setPhone(phone);
         }
-        user.setFullName(dto.getFullName());
-        user.setKnow(dto.getHowKnow());
-        user.setCompany(dto.getCompany());
-        user.setWorkType(dto.getWorkType());
+        if (dto.getFullName() != null)
+            user.setFullName(dto.getFullName());
+        if (dto.getHowKnow() != null)
+            user.setKnow(dto.getHowKnow());
+        if (dto.getCompany() != null)
+            user.setCompany(dto.getCompany());
+        if (dto.getWorkType() != null)
+            user.setWorkType(dto.getWorkType());
         Address address = new Address();
         Optional<Country> countryOptional = countryRepository.findById(dto.getCountryId());
         if (countryOptional.isEmpty()) {
@@ -297,7 +291,7 @@ public class UserService {
 
     public ApiResponse<User> getByQrCode(String code) {
         Optional<User> userOptional = userRepository.findByDepartment_IdAndQrcode(departmentId, UUID.fromString(code));
-        if (userOptional.isEmpty()){
+        if (userOptional.isEmpty()) {
             return ApiResponse.<User>builder().
                     message("User not found!!!").
                     status(400).
