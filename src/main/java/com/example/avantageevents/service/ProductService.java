@@ -110,7 +110,7 @@ public class ProductService {
         LocalDateTime from = LocalDateTime.parse(productDTO.getFrom());
         LocalDateTime to = LocalDateTime.parse(productDTO.getTo());
         if (productDTO.getFrom() != null) {
-            if (LocalDateTime.now().isAfter(from)) {
+            if (LocalDateTime.now().isBefore(from)) {
                 product.setFromDate(from);
             } else {
                 return ApiResponse.builder().
@@ -121,7 +121,7 @@ public class ProductService {
             }
         }
         if (productDTO.getTo() != null) {
-            if (LocalDateTime.now().isAfter(to) && from.isAfter(to)) {
+            if (LocalDateTime.now().isBefore(to) && from.isAfter(to)) {
                 product.setToDate(to);
             }
             else {
