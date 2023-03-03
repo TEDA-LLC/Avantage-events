@@ -112,22 +112,25 @@ public class ProductService {
         if (productDTO.getFrom() != null) {
             if (LocalDateTime.now().isAfter(from)) {
                 product.setFromDate(from);
+            } else {
+                return ApiResponse.builder().
+                        message("Wrong start data time!!!").
+                        status(400).
+                        success(false).
+                        build();
             }
-            return ApiResponse.builder().
-                    message("Wrong start data time!!!").
-                    status(400).
-                    success(false).
-                    build();
         }
         if (productDTO.getTo() != null) {
-            if (LocalDateTime.now().isAfter(to)) {
+            if (LocalDateTime.now().isAfter(to) && from.isAfter(to)) {
                 product.setToDate(to);
             }
-            return ApiResponse.builder().
-                    message("Wrong finish data time!!!").
-                    status(400).
-                    success(false).
-                    build();
+            else {
+                return ApiResponse.builder().
+                        message("Wrong finish data time!!!").
+                        status(400).
+                        success(false).
+                        build();
+            }
         }
         if (productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
             List<User> speakersList = userRepository.findAllById(productDTO.getSpeakersId());
@@ -194,7 +197,31 @@ public class ProductService {
             address.setStreetHome(addressDTO.getStreetHome());
             product.setAddress(address);
         }
-
+        LocalDateTime from = LocalDateTime.parse(productDTO.getFrom());
+        LocalDateTime to = LocalDateTime.parse(productDTO.getTo());
+        if (productDTO.getFrom() != null) {
+            if (LocalDateTime.now().isAfter(from)) {
+                product.setFromDate(from);
+            } else {
+                return ApiResponse.builder().
+                        message("Wrong start data time!!!").
+                        status(400).
+                        success(false).
+                        build();
+            }
+        }
+        if (productDTO.getTo() != null) {
+            if (LocalDateTime.now().isAfter(to) && from.isAfter(to)) {
+                product.setToDate(to);
+            }
+            else {
+                return ApiResponse.builder().
+                        message("Wrong finish data time!!!").
+                        status(400).
+                        success(false).
+                        build();
+            }
+        }
         product.setNameUz(productDTO.getNameUz());
         product.setNameRu(productDTO.getNameRu());
         product.setNameEn(productDTO.getNameEn());
