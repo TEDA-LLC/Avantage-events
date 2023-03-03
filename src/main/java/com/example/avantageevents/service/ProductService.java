@@ -3,17 +3,8 @@ package com.example.avantageevents.service;
 import com.example.avantageevents.dto.AddressDTO;
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.ProductDTO;
-import com.example.avantageevents.model.Address;
-import com.example.avantageevents.model.Attachment;
-import com.example.avantageevents.model.Category;
-import com.example.avantageevents.model.District;
-import com.example.avantageevents.model.Product;
-import com.example.avantageevents.model.User;
-import com.example.avantageevents.repository.AttachmentRepository;
-import com.example.avantageevents.repository.CategoryRepository;
-import com.example.avantageevents.repository.DistrictRepository;
-import com.example.avantageevents.repository.ProductRepository;
-import com.example.avantageevents.repository.UserRepository;
+import com.example.avantageevents.model.*;
+import com.example.avantageevents.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
@@ -116,9 +107,11 @@ public class ProductService {
         product.setDescriptionRu(productDTO.getDescriptionRu());
         product.setDescriptionUz(productDTO.getDescriptionUz());
         product.setDescriptionEn(productDTO.getDescriptionEn());
-        if (productDTO.getFrom() != null){
-            if (LocalDateTime.now().isAfter(productDTO.getFrom())){
-                product.setFromDate(productDTO.getFrom());
+        LocalDateTime from = LocalDateTime.parse(productDTO.getFrom());
+        LocalDateTime to = LocalDateTime.parse(productDTO.getTo());
+        if (productDTO.getFrom() != null) {
+            if (LocalDateTime.now().isAfter(from)) {
+                product.setFromDate(from);
             }
             return ApiResponse.builder().
                     message("Wrong start data time!!!").
@@ -126,9 +119,9 @@ public class ProductService {
                     success(false).
                     build();
         }
-        if (productDTO.getTo() != null){
-            if (LocalDateTime.now().isAfter(productDTO.getTo())){
-                product.setToDate(productDTO.getTo());
+        if (productDTO.getTo() != null) {
+            if (LocalDateTime.now().isAfter(to)) {
+                product.setToDate(to);
             }
             return ApiResponse.builder().
                     message("Wrong finish data time!!!").
@@ -136,7 +129,7 @@ public class ProductService {
                     success(false).
                     build();
         }
-        if(productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
+        if (productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
             List<User> speakersList = userRepository.findAllById(productDTO.getSpeakersId());
             product.setSpeakers(speakersList);
         }
@@ -201,6 +194,7 @@ public class ProductService {
             address.setStreetHome(addressDTO.getStreetHome());
             product.setAddress(address);
         }
+
         product.setNameUz(productDTO.getNameUz());
         product.setNameRu(productDTO.getNameRu());
         product.setNameEn(productDTO.getNameEn());
@@ -209,7 +203,7 @@ public class ProductService {
         product.setDescriptionEn(productDTO.getDescriptionEn());
         product.setPrice(productDTO.getPrice());
         product.setCategory(optionalCategory.get());
-        if(productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
+        if (productDTO.getSpeakersId() != null && !productDTO.getSpeakersId().isEmpty()) {
             List<User> speakersList = userRepository.findAllById(productDTO.getSpeakersId());
             product.setSpeakers(speakersList);
         }
