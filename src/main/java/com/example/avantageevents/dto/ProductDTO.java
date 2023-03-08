@@ -1,10 +1,12 @@
 package com.example.avantageevents.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 @ToString
 public class ProductDTO {
 
-    private String nameUz, nameRu, nameEn, descriptionUz, descriptionRu, descriptionEn;
+    private String nameUz, nameRu, nameEn, descriptionUz, descriptionRu, descriptionEn, textUz, textRu, textEn, agreeTextUz, agreeTextEn, agreeTextRu;
     private List<Long> speakersId;
     private Long categoryId;
     private AddressDTO address;

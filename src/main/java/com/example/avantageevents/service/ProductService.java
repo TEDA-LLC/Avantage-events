@@ -104,6 +104,12 @@ public class ProductService {
         product.setNameRu(productDTO.getNameRu());
         product.setNameUz(productDTO.getNameUz());
         product.setNameEn(productDTO.getNameEn());
+        product.setAgreeTextEn(product.getAgreeTextEn());
+        product.setAgreeTextRu(product.getAgreeTextRu());
+        product.setAgreeTextUz(product.getAgreeTextUz());
+        product.setTextEn(product.getTextEn());
+        product.setTextRu(product.getTextRu());
+        product.setTextUz(product.getTextUz());
         product.setDescriptionRu(productDTO.getDescriptionRu());
         product.setDescriptionUz(productDTO.getDescriptionUz());
         product.setDescriptionEn(productDTO.getDescriptionEn());
@@ -225,6 +231,12 @@ public class ProductService {
         product.setNameUz(productDTO.getNameUz());
         product.setNameRu(productDTO.getNameRu());
         product.setNameEn(productDTO.getNameEn());
+        product.setAgreeTextEn(product.getAgreeTextEn());
+        product.setAgreeTextRu(product.getAgreeTextRu());
+        product.setAgreeTextUz(product.getAgreeTextUz());
+        product.setTextEn(product.getTextEn());
+        product.setTextRu(product.getTextRu());
+        product.setTextUz(product.getTextUz());
         product.setDescriptionUz(productDTO.getNameUz());
         product.setDescriptionRu(productDTO.getDescriptionRu());
         product.setDescriptionEn(productDTO.getDescriptionEn());

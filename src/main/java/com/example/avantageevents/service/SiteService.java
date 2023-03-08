@@ -85,6 +85,7 @@ public class SiteService {
         }
         Product product = productOptional.get();
         request.setProduct(product);
+        request.setAgree(dto.isAgree());
         if (dto.getCategory() != null) {
             request.setCategory(dto.getCategory());
         } else {

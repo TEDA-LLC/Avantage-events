@@ -18,5 +18,6 @@ public class RequestDTO {
     private Long productId;
     private UserDTO user;
     private String aboutProduct, category;
+    private boolean agree;
 
 }
