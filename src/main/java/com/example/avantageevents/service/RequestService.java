@@ -75,11 +75,12 @@ public class RequestService {
                     .build();
         }
         Request request = requestList.get(0);
-        if (request.getArrivalTime() != null){
+        if (request.getArrivalTime() != null) {
             return ApiResponse.builder()
                     .message("User is registered")
                     .status(200)
                     .success(true)
+                    .data(request.getUser())
                     .build();
         }
         request.setArrivalTime(LocalDateTime.now());
@@ -88,6 +89,7 @@ public class RequestService {
                 .message("Success ")
                 .status(200)
                 .success(true)
+                .data(request.getUser())
                 .build();
     }
 }
