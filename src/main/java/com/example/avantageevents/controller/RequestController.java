@@ -43,8 +43,8 @@ public class RequestController {
         return ResponseEntity.status(productUsers.getStatus()).body(productUsers);
     }
 
-    @PatchMapping
-    public ResponseEntity<?> edit(@RequestParam Long eventId, @RequestParam String qrcode){
+    @PatchMapping("/{eventId}")
+    public ResponseEntity<?> edit(@PathVariable Long eventId, @RequestParam String qrcode){
         ApiResponse<?> response = requestService.edit(eventId, qrcode);
         return ResponseEntity.status(response.getStatus()).body(response);
     }

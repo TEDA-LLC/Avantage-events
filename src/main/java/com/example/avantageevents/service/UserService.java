@@ -2,9 +2,19 @@ package com.example.avantageevents.service;
 
 import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.dto.UserDTO;
-import com.example.avantageevents.model.*;
+import com.example.avantageevents.model.Address;
+import com.example.avantageevents.model.Country;
+import com.example.avantageevents.model.Product;
+import com.example.avantageevents.model.Region;
+import com.example.avantageevents.model.Request;
+import com.example.avantageevents.model.User;
 import com.example.avantageevents.model.enums.RegisteredType;
-import com.example.avantageevents.repository.*;
+import com.example.avantageevents.repository.CountryRepository;
+import com.example.avantageevents.repository.DepartmentRepository;
+import com.example.avantageevents.repository.ProductRepository;
+import com.example.avantageevents.repository.RegionRepository;
+import com.example.avantageevents.repository.RequestRepository;
+import com.example.avantageevents.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -28,6 +38,7 @@ public class UserService {
     private final DepartmentRepository departmentRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
+    private final ChangeService changeService;
 
     public ApiResponse<Page<User>> getAll(int page) {
         Page<User> userPage = userRepository.findAllByDepartment_Id(departmentId, PageRequest.of(page, size));

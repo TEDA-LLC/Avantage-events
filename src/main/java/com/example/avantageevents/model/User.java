@@ -1,6 +1,10 @@
 package com.example.avantageevents.model;
 
-import com.example.avantageevents.model.enums.*;
+import com.example.avantageevents.model.enums.Gender;
+import com.example.avantageevents.model.enums.Language;
+import com.example.avantageevents.model.enums.RegisteredType;
+import com.example.avantageevents.model.enums.State;
+import com.example.avantageevents.model.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -91,5 +95,9 @@ public class User {
     private UserRole role;
     private boolean resident = true;
     private String know, company, workType;
+    @ManyToOne
+    private Employee employee;
+    private LocalDateTime botRegisteredTime;
+    private LocalDateTime siteRegisteredTime;
 
 }

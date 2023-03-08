@@ -9,13 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -49,5 +43,7 @@ public class Request {
     @ManyToOne
     private Employee employee;
     private LocalDateTime arrivalTime;
+    @Column(nullable = true)
+    private boolean agree;
 
 }

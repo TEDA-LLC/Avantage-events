@@ -5,6 +5,6 @@ package com.example.avantageevents.model.enums;
  */
 public enum RegisteredType {
 
-    BOT, WEBSITE
+    BOT, WEBSITE, CALL_CENTER
 
 }

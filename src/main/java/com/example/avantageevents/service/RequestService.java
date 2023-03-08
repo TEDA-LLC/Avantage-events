@@ -75,6 +75,13 @@ public class RequestService {
                     .build();
         }
         Request request = requestList.get(0);
+        if (request.getArrivalTime() != null){
+            return ApiResponse.builder()
+                    .message("User is registered")
+                    .status(200)
+                    .success(true)
+                    .build();
+        }
         request.setArrivalTime(LocalDateTime.now());
         requestRepository.save(request);
         return ApiResponse.builder()
