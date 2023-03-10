@@ -84,6 +84,7 @@ public class RequestService {
                     .build();
         }
         request.setArrivalTime(LocalDateTime.now());
+        request.setView(true);
         requestRepository.save(request);
         return ApiResponse.builder()
                 .message("Success ")

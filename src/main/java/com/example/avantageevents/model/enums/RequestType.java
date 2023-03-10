@@ -5,6 +5,6 @@ package com.example.avantageevents.model.enums;
  */
 public enum RequestType {
 
-    UNDER_REVIEW
+    UNDER_REVIEW, REVIEW,
 
 }
