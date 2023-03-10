@@ -26,8 +26,9 @@ public class Bot {
     private Long id;
     @Column(unique = true, nullable = false)
     private String token, username;
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Department department;
     @OneToMany

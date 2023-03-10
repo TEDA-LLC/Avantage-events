@@ -29,7 +29,7 @@ public class UserExcelExporter {
     private void writeHeaderLine() {
         sheet = workbook.createSheet("Requests");
 
-        Row row = sheet.createRow(0);
+        Row row = sheet.createRow(1);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setBold(true);
@@ -61,13 +61,16 @@ public class UserExcelExporter {
     }
 
     private void writeDataLines() {
-        int rowCount = 1;
+        int rowCount = 2;
 
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
         style.setFont(font);
         int count = 1;
+        Row row1 = sheet.createRow(0);
+        if (!requestList.isEmpty())
+            createCell(row1, 0, "  EVENT NAME : " + requestList.get(0).getProduct().getNameEn(), style);
         for (Request request : requestList) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
@@ -102,7 +105,7 @@ public class UserExcelExporter {
 
     private String checkingLength(int num) {
         if (num < 10)
-            return  "0" + num;
+            return "0" + num;
         else
             return String.valueOf(num);
     }
