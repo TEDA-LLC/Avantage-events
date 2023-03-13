@@ -4,6 +4,7 @@ import com.example.avantageevents.dto.ApiResponse;
 import com.example.avantageevents.model.Product;
 import com.example.avantageevents.model.Request;
 import com.example.avantageevents.model.User;
+import com.example.avantageevents.model.enums.RegisteredType;
 import com.example.avantageevents.repository.ProductRepository;
 import com.example.avantageevents.repository.RequestRepository;
 import com.example.avantageevents.repository.UserRepository;
@@ -92,5 +93,46 @@ public class RequestService {
                 .success(true)
                 .data(request.getUser())
                 .build();
+    }
+
+    public ApiResponse<Request> add(Long userId, Long eventId) {
+        Optional<Product> productOptional = productRepository.findById(eventId);
+        if (productOptional.isEmpty() || !productOptional.get().getCategory().getDepartment().getId().equals(departmentId)) {
+            return ApiResponse.<Request>builder().
+                    message("Event not found!!!").
+                    status(400).
+                    success(false).
+                    build();
+        }
+        Product product = productOptional.get();
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty() || !userOptional.get().getDepartment().getId().equals(departmentId)) {
+            return ApiResponse.<Request>builder().
+                    message("User not found!!!").
+                    status(400).
+                    success(false).
+                    build();
+        }
+        User user = userOptional.get();
+        List<Request> requestList = requestRepository.findAllByProductAndUser(product, user);
+        if (!requestList.isEmpty()) {
+            return ApiResponse.<Request>builder().
+                    message("This user is already registered!!!").
+                    status(200).
+                    success(true).
+                    data(requestList.get(0)).
+                    build();
+        }
+        Request request = new Request();
+        request.setProduct(product);
+        request.setUser(user);
+        request.setRegisteredType(RegisteredType.CALL_CENTER);
+        Request save = requestRepository.save(request);
+        return ApiResponse.<Request>builder().
+                message("Registered!!!").
+                status(201).
+                success(true).
+                data(save).
+                build();
     }
 }

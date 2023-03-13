@@ -48,4 +48,10 @@ public class RequestController {
         ApiResponse<?> response = requestService.edit(eventId, qrcode);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
+
+    @PostMapping
+    public ResponseEntity<?> add(@RequestParam Long userId, @RequestParam Long eventId){
+        ApiResponse<Request> response = requestService.add(userId, eventId);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }
